@@ -2,7 +2,7 @@ package com.example.yelpclone.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class YelpLocation(
+data class YelpLocations(
     val city: String,
     val country: String,
     val address2: String,
