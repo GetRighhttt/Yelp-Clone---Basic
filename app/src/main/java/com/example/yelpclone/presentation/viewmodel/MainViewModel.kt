@@ -1,20 +1,25 @@
 package com.example.yelpclone.presentation.viewmodel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.domain.repository.RepositoryImpl
 import com.example.yelpclone.domain.util.DispatcherProvider
 import com.example.yelpclone.domain.util.Resource
-import com.example.yelpclone.domain.util.SearchEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val repositoryImpl: RepositoryImpl,
-    private val dispatchers: DispatcherProvider
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    private val app: Application
+) : AndroidViewModel(app) {
 
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
@@ -71,4 +76,17 @@ class MainViewModel(
 
     fun setEmptySearchState() = SearchEvent.Empty
     fun setLoadingSearchState() = SearchEvent.Loading
+
+    sealed class SearchEvent {
+        data class SearchSuccess(
+            val successMsg: String = "All information has loaded in successfully!"
+        ) : SearchEvent()
+
+        data class SearchFailure(
+            val errorMsg: String = "There seems to be an error loading in information..."
+        ) : SearchEvent()
+
+        object Empty : SearchEvent()
+        object Loading : SearchEvent()
+    }
 }
