@@ -1,4 +1,4 @@
-package com.example.yelpclone.viewmodel
+package com.example.yelpclone.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 
