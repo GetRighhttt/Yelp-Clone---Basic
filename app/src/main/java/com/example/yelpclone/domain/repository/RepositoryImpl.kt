@@ -7,8 +7,6 @@ import com.example.yelpclone.domain.util.Resource
 
 /*
 Implementing methods outlined in our repository. Serves as layer between api and views.
-Acts as a single source of truth and additional layer of abstraction.
-Isolates the data layer from the rest of the application.
  */
 class RepositoryImpl(
     private val yelpService: YelpService
