@@ -1,12 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
     /**
      * Added dependencies for parsing data and kapt compilation.
      */
     id 'kotlin-parcelize' // parsing data easily
     id 'kotlin-kapt'
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -57,7 +57,7 @@ dependencies {
 
     /**
      * Below we add in our required dependencies for this project:
-     * #Includes - Coroutines, Glide, Lifecycle Components, Permissions
+     * #Includes - Coroutines, Glide, Lifecycle Components, Permissions, Dagger-Hilt
      */
 
     // Retrofit - API
@@ -81,4 +81,14 @@ dependencies {
 
     // permissions library
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    // Dagger-Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+    /*
+    Allows references to generated code: Necessary for Dagger-Hilt
+     */
+    kapt {
+    correctErrorTypes = true
 }
