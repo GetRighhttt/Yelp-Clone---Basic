@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val TAG = "MAIN_ACTIVITY"
+        private const val MAIN = "MAIN_ACTIVITY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
                         "Florida")
                         .toString()
 
-                    Log.d(TAG, "Search Restaurants ${binding.textView}")
+                    Log.d(MAIN, "Search Restaurants ${binding.textView}")
                 }
             } catch (e: Exception) {
-                Log.d(TAG, "Exception while searching for restaurants: ${e.stackTrace}")
+                Log.d(MAIN, "Exception while searching for restaurants: ${e.stackTrace}")
             }
         }
     }

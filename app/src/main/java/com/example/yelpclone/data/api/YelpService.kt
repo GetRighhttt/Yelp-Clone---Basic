@@ -1,6 +1,7 @@
 package com.example.yelpclone.data.api
 
 import android.provider.SyncStateContract.Constants
+import com.example.yelpclone.data.model.YelpSearchResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -18,6 +19,6 @@ interface YelpService {
         @Header("Authorization") authHeader: String,
         @Query("term") searchTerm: String,
         @Query("location") location: String
-    ) : Response<Any>
+    ) : Response<YelpSearchResult>
 
 }
