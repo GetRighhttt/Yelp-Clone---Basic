@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class YelpRestaurants(
-    val rating: Int,
+    val rating: Double,
     val price: String,
     val phone: String,
     val id: String,

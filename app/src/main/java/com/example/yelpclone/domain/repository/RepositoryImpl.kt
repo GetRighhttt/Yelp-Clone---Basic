@@ -19,9 +19,9 @@ class RepositoryImpl(
     ): Resource<YelpSearchResult> {
         return try {
             val response = yelpService.searchRestaurants(
-                "Bearer ${Constants.API_KEY}",
-                "restaurants",
-                "Florida"
+                authHeader,
+                searchTerm,
+                location
             )
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
@@ -30,7 +30,7 @@ class RepositoryImpl(
                 Resource.Error(response.message())
             }
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Unable to retrieve rates.")
+            Resource.Error(e.message ?: "Unable to retrieve restaurants.")
         }
     }
 }

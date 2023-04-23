@@ -29,7 +29,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(apiService: YelpService): RepositoryImpl = RepositoryImpl(apiService)
+    fun provideRepository(yelpService: YelpService): RepositoryImpl = RepositoryImpl(yelpService)
 
     @Singleton
     @Provides
@@ -47,10 +47,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCurrencyViewModelFactory(
-        repository: RepositoryImpl,
-        dispatchers: DispatcherProvider,
-        app: Application,
+        repository: RepositoryImpl
     ): MainViewModelFactory {
-        return MainViewModelFactory(repository, dispatchers, app)
+        return MainViewModelFactory(repository)
     }
 }

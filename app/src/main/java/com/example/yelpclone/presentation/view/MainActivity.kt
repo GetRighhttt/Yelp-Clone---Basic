@@ -1,117 +1,90 @@
 package com.example.yelpclone.presentation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.SearchEvent
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.yelpclone.data.api.RetrofitInstance
-import com.example.yelpclone.data.api.YelpService
 import com.example.yelpclone.data.model.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.domain.repository.RepositoryImpl
 import com.example.yelpclone.domain.util.Constants
-import com.example.yelpclone.domain.util.DispatcherProvider
 import com.example.yelpclone.domain.util.Resource
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
-import com.example.yelpclone.presentation.viewmodel.MainViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
-
-    // get a reference to the adapter and list recycler view
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var yelpAdapter: RestaurantsAdapter
     private val restaurants = mutableListOf<YelpRestaurants>()
-    private val adapter = RestaurantsAdapter(this)
-
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
+        private const val BEARER = "Bearer ${Constants.API_KEY}"
+        private const val SEARCH_TERM = "Avocado Toast"
+        private const val LOCATION = "New York"
     }
-
-    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
-        viewModel.getRestaurants(
-            "Bearer ${Constants.API_KEY}",
-            "Avocado Toast",
-            "Florida")
-
-        binding.apply {
-            rvRestaurantList.adapter = adapter
-            rvRestaurantList.layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-
+        initRecyclerView()
         determineSearchState()
     }
 
+    private fun initRecyclerView() {
+        binding.rvRestaurantList.apply {
+            yelpAdapter = RestaurantsAdapter(this@MainActivity)
+            adapter = yelpAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+    }
+
     private fun determineSearchState() {
+        viewModel.getRestaurants(BEARER, SEARCH_TERM, LOCATION)
+        binding.apply {
 
-        try {
-            lifecycleScope.launch {
-                binding.apply {
-                    viewModel.searchState.collect { searchEvent ->
+            viewModel.searchState.observe(this@MainActivity, Observer { response ->
+                when (response) {
+                    is Resource.Error -> {
+                        materialDialog(
+                            this@MainActivity,
+                            "ERROR!",
+                            "Oops! Looks like we couldn't fetch any data Try again in a few minutes!"
+                        )
+                        pbMain.visibility = View.GONE
+                        Log.d(MAIN, "Failed to update UI with data: ${response.message}")
+                    }
 
-                        when (searchEvent) {
-                            is MainViewModel.SearchEvent.SearchSuccess -> {
-                                adapter.differ.submitList(restaurants)
-                                materialDialog(
-                                    this@MainActivity,
-                                    "SUCCESS!",
-                                    searchEvent.successMsg
-                                )
-                                pbMain.visibility = View.GONE
-                                Log.d(MAIN, "Search Success!")
-                            }
+                    is Resource.Loading -> {
+                        pbMain.visibility = View.VISIBLE
+                        Log.d(MAIN, "Loading main...}")
+                    }
 
-                            is MainViewModel.SearchEvent.SearchFailure -> {
-                                materialDialog(
-                                    this@MainActivity,
-                                    "FAILURE!",
-                                    searchEvent.errorMsg
-                                )
-                                pbMain.visibility = View.GONE
-                                Log.d(MAIN, "Search Failure!")
-                            }
-
-                            MainViewModel.SearchEvent.Loading -> {
-                                Snackbar.make(binding.root, "Loading...", Snackbar.LENGTH_LONG)
-                                    .show()
-                                pbMain.visibility = View.VISIBLE
-                                Log.d(MAIN, "Empty search state")
-                            }
-
-                            MainViewModel.SearchEvent.Empty -> {
-                                pbMain.visibility = View.GONE
-                                Log.d(MAIN, "Empty search state")
-                            }
+                    is Resource.Success -> {
+                        response.data?.let {
+                            yelpAdapter.differ.submitList(it.restaurants.toList())
                         }
+                        materialDialog(
+                            this@MainActivity,
+                            "SUCCESS!",
+                            "Hooray! We were able to fetch ${response.data} restaurants!"
+                        )
+                        pbMain.visibility = View.GONE
+                        Log.d(MAIN, "Successfully updated UI with data: ${response.data}")
+
                     }
                 }
-            }
-
-        } catch (e: Exception) {
-            Log.d(MAIN, "Error: ${e.message}", e)
+            })
         }
     }
 
@@ -123,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val dialog = MaterialAlertDialogBuilder(mainActivity)
             .setTitle(titleText)
             .setMessage(answerText)
-            .setPositiveButton("Continue") { dialog, _ ->
+            .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

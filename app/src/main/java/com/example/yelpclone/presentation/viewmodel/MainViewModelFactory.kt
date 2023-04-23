@@ -7,11 +7,9 @@ import com.example.yelpclone.domain.repository.RepositoryImpl
 import com.example.yelpclone.domain.util.DispatcherProvider
 
 class MainViewModelFactory(
-    private val repositoryImpl: RepositoryImpl,
-    private val dispatchers: DispatcherProvider,
-    private val app: Application
+    private val repositoryImpl: RepositoryImpl
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(repositoryImpl, dispatchers, app) as T
+        return MainViewModel(repositoryImpl) as T
     }
 }

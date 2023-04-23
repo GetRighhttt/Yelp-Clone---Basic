@@ -24,7 +24,7 @@ class RestaurantsAdapter(
         : DiffUtil.ItemCallback<YelpRestaurants>() {
 
         override fun areItemsTheSame(oldItem: YelpRestaurants, newItem: YelpRestaurants): Boolean {
-            return oldItem.url == newItem.url
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(
@@ -39,8 +39,6 @@ class RestaurantsAdapter(
 
     /*
     ----------------------------------------------------------------------------
-    End DiffUtil -> Start ViewHolder()
-
     Now we define our view holder. This is where we bind our views with the
     recycler view. We can modify the recycler view items here - onClicks, etc.
     ----------------------------------------------------------------------------

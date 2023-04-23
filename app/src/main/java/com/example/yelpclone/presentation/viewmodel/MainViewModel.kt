@@ -1,25 +1,22 @@
 package com.example.yelpclone.presentation.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.yelpclone.data.model.YelpSearchResult
 import com.example.yelpclone.domain.repository.RepositoryImpl
-import com.example.yelpclone.domain.util.DispatcherProvider
 import com.example.yelpclone.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repositoryImpl: RepositoryImpl,
-    private val dispatchers: DispatcherProvider,
-    private val app: Application
-) : AndroidViewModel(app) {
+    private val repositoryImpl: RepositoryImpl
+) : ViewModel() {
 
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
@@ -29,64 +26,37 @@ class MainViewModel @Inject constructor(
         Log.d(VIEW_MODEL, "View model initialized.")
     }
 
-    private var _searchState = MutableStateFlow<SearchEvent>(SearchEvent.Empty)
-    val searchState: MutableStateFlow<SearchEvent> = _searchState
+    private var _searchState: MutableLiveData<Resource<YelpSearchResult?>> = MutableLiveData()
+    val searchState: MutableLiveData<Resource<YelpSearchResult?>> get() = _searchState
 
     fun getRestaurants(authHeader: String, searchTerm: String, location: String) {
-        _searchState.value = SearchEvent.Loading
+        viewModelScope.launch(Dispatchers.IO) {
 
-        try {
-            viewModelScope.launch(dispatchers.ioCD) {
-                // delay to allow for progress bar to show
-                delay(500L)
+            delay(1000)
 
-                val searchResponse =
-                    repositoryImpl.searchRestaurants(authHeader, searchTerm, location)
+            try {
+                when (val apiResult =
+                    repositoryImpl.searchRestaurants(authHeader, searchTerm, location)) {
 
-                when (searchResponse) {
-
-                    is Resource.Success -> {
-                        val searchSuccess = searchResponse.data.toString()
-                        _searchState.value = SearchEvent.SearchSuccess(searchSuccess)
-                        if (searchSuccess.isEmpty()) {
-                            _searchState.value =
-                                SearchEvent.SearchFailure(searchResponse.message.toString())
-                            Log.d(VIEW_MODEL, "Search restaurants = FAILURE!")
-                        }
-                        Log.d(VIEW_MODEL, "Search restaurants = SUCCESS!")
+                    is Resource.Loading -> {
+                        _searchState.postValue(Resource.Loading())
+                        Log.d(VIEW_MODEL, "Loading restaurants.")
                     }
 
                     is Resource.Error -> {
-                        _searchState.value =
-                            SearchEvent.SearchFailure(searchResponse.message.toString())
-                        Log.d(VIEW_MODEL, "Search restaurants = FAILURE!")
+                        _searchState.postValue(Resource.Error(apiResult.message.toString()))
+                        Log.d(VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
                     }
 
-                    is Resource.Loading -> {
-                        _searchState.value = SearchEvent.Loading
-                        Log.d(VIEW_MODEL, "Search restaurants = Loading...")
+                    is Resource.Success -> {
+                        _searchState.postValue(Resource.Success(apiResult.data))
+                        Log.d(VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
                     }
                 }
+
+            } catch (e: Exception) {
+                Log.e(VIEW_MODEL, "Error getting restaurants", e)
             }
-        } catch (e: IllegalStateException) {
-            _searchState.value = SearchEvent.SearchFailure(e.message.toString())
-            Log.d(VIEW_MODEL, "Exception getting restaurants: ${e.printStackTrace()}")
         }
-    }
-
-    fun setEmptySearchState() = SearchEvent.Empty
-    fun setLoadingSearchState() = SearchEvent.Loading
-
-    sealed class SearchEvent {
-        data class SearchSuccess(
-            val successMsg: String = "All information has loaded in successfully!"
-        ) : SearchEvent()
-
-        data class SearchFailure(
-            val errorMsg: String = "There seems to be an error loading in information..."
-        ) : SearchEvent()
-
-        object Empty : SearchEvent()
-        object Loading : SearchEvent()
     }
 }
