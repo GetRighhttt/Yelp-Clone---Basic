@@ -1,10 +1,9 @@
 package com.example.yelpclone.di
 
-import android.app.Application
 import com.example.yelpclone.data.api.RetrofitInstance
 import com.example.yelpclone.data.api.YelpService
-import com.example.yelpclone.domain.repository.RepositoryImpl
-import com.example.yelpclone.domain.util.DispatcherProvider
+import com.example.yelpclone.domain.RepositoryImpl
+import com.example.yelpclone.core.util.DispatcherProvider
 import com.example.yelpclone.presentation.viewmodel.MainViewModelFactory
 import dagger.Module
 import dagger.Provides

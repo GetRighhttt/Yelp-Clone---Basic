@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.data.model.YelpSearchResult
-import com.example.yelpclone.domain.repository.RepositoryImpl
-import com.example.yelpclone.domain.util.DispatcherProvider
-import com.example.yelpclone.domain.util.Resource
+import com.example.yelpclone.domain.RepositoryImpl
+import com.example.yelpclone.core.util.DispatcherProvider
+import com.example.yelpclone.core.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +27,8 @@ class MainViewModel @Inject constructor(
         Log.d(VIEW_MODEL, "View model initialized.")
     }
 
-    private var _searchState: MutableStateFlow<Resource<YelpSearchResult?>> = MutableStateFlow(Resource.Loading())
+    private var _searchState: MutableStateFlow<Resource<YelpSearchResult?>> = MutableStateFlow(
+        Resource.Loading())
     val searchState: MutableStateFlow<Resource<YelpSearchResult?>> get() = _searchState
 
     fun getRestaurants(authHeader: String, searchTerm: String, location: String) {

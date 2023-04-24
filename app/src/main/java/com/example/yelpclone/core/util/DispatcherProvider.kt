@@ -1,4 +1,4 @@
-package com.example.yelpclone.domain.util
+package com.example.yelpclone.core.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 

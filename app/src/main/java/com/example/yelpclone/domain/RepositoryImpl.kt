@@ -1,8 +1,9 @@
-package com.example.yelpclone.domain.repository
+package com.example.yelpclone.domain
 
 import com.example.yelpclone.data.api.YelpService
 import com.example.yelpclone.data.model.YelpSearchResult
-import com.example.yelpclone.domain.util.Resource
+import com.example.yelpclone.core.util.Resource
+import com.example.yelpclone.domain.sot.YelpRepository
 
 /*
 Implementing methods outlined in our repository. Serves as layer between api and views.

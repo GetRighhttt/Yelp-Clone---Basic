@@ -9,11 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.YelpCoordinates
-import com.example.yelpclone.data.model.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.domain.util.Constants
-import com.example.yelpclone.domain.util.Resource
+import com.example.yelpclone.core.Constants
+import com.example.yelpclone.core.util.Resource
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG

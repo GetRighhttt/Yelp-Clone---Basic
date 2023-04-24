@@ -1,6 +1,6 @@
 package com.example.yelpclone.data.api
 
-import com.example.yelpclone.domain.util.Constants
+import com.example.yelpclone.core.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
