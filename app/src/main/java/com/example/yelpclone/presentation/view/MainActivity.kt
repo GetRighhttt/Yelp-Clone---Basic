@@ -10,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.core.Constants
-import com.example.yelpclone.core.util.Resource
+import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
@@ -29,9 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
-        private const val BEARER = "Bearer ${Constants.API_KEY}"
-        private const val SEARCH_TERM = "Avocado Toast"
-        private const val LOCATION = "New York"
         const val EXTRA_ID = "EXTRA_ID"
         var LONG = "LONG"
         var LAT = "LAT"
@@ -102,15 +98,14 @@ class MainActivity : AppCompatActivity() {
                     override fun onItemClick(position: Int) {
                         POSITION = position.toString()
                         val intent = Intent(this@MainActivity, MapsActivity::class.java)
-                        setRestaurants()
                         lifecycleScope.launch {
                             viewModel.searchState.collect {
                                 when (it) {
-                                    is Resource.Success -> {
+                                    is SearchEvent.Success -> {
                                         val lat =
-                                            it.data!!.restaurants[POSITION.toInt()].coordinates.latitude
+                                            it.results!!.restaurants[POSITION.toInt()].coordinates.latitude
                                         val long =
-                                            it.data.restaurants[POSITION.toInt()].coordinates.longitude
+                                            it.results.restaurants[POSITION.toInt()].coordinates.longitude
                                         LAT = intent.putExtra(EXTRA_ID, lat).toString()
                                         LONG = intent.putExtra(EXTRA_ID, long).toString()
                                     }
@@ -120,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                                             binding.root,
                                             "Couldn't navigate to maps sadly...",
                                             LENGTH_LONG
-                                        ).setAction("Ok") { Unit }.show()
+                                        ).setAction("Ok") {}.show()
                                     }
                                 }
                             }
@@ -136,16 +131,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setRestaurants() = viewModel.getRestaurants(BEARER, SEARCH_TERM, LOCATION)
-
     private fun determineSearchState() {
-        setRestaurants()
         binding.apply {
             lifecycleScope.launch {
                 viewModel.searchState.collect { response ->
 
                     when (response) {
-                        is Resource.Error -> {
+                        is SearchEvent.Failure -> {
                             materialDialog(
                                 this@MainActivity,
                                 "ERROR!",
@@ -153,28 +145,30 @@ class MainActivity : AppCompatActivity() {
                                         " Try again in a few minutes!"
                             )
                             pbMain.visibility = View.GONE
-                            Log.d(MAIN, "Failed to update UI with data: ${response.message}")
+                            Log.d(MAIN, "Failed to update UI with data: ${response.errorMessage}")
                         }
 
-                        is Resource.Loading -> {
+                        is SearchEvent.Loading -> {
                             pbMain.visibility = View.VISIBLE
                             Log.d(MAIN, "Loading main...}")
                         }
 
-                        is Resource.Success -> {
-                            response.data?.let {
+                        is SearchEvent.Success -> {
+                            response.results?.let {
                                 yelpAdapter.differ.submitList(it.restaurants.toList())
                             }
                             materialDialog(
                                 this@MainActivity,
                                 "SUCCESS!",
                                 "Hooray! We were able to fetch " +
-                                        "${response.data!!.total} restaurants!"
+                                        "${response.results!!.total} restaurants!"
                             )
                             pbMain.visibility = View.GONE
-                            Log.d(MAIN, "Successfully updated UI with data: ${response.data}")
+                            Log.d(MAIN, "Successfully updated UI with data: ${response.results}")
 
                         }
+
+                        is SearchEvent.Idle -> TODO()
                     }
                 }
             }
@@ -187,12 +181,13 @@ class MainActivity : AppCompatActivity() {
         answerText: String
     ) = object : MaterialAlertDialogBuilder(this) {
         val dialog = MaterialAlertDialogBuilder(mainActivity)
-            .setTitle(titleText)
-            .setMessage(answerText)
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+                .setTitle(titleText)
+                .setMessage(answerText)
+                .setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+
     }
 
 

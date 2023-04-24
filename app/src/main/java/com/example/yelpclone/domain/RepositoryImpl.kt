@@ -2,7 +2,7 @@ package com.example.yelpclone.domain
 
 import com.example.yelpclone.data.api.YelpService
 import com.example.yelpclone.data.model.YelpSearchResult
-import com.example.yelpclone.core.util.Resource
+import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.domain.sot.YelpRepository
 
 /*
