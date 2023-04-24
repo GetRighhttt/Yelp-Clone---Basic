@@ -1,6 +1,7 @@
 package com.example.yelpclone.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class YelpRestaurants(
@@ -14,10 +15,11 @@ data class YelpRestaurants(
     @SerializedName("review_count") val reviewCount: Int,
     val name: String,
     val url: String,
+    val coordinates: YelpCoordinates,
     @SerializedName("image_url") val imageUrl: String,
     val location: YelpLocations,
     val distance: Double // meters
-) {
+) : Serializable {
     /*
     Need a function to convert distance in meters into a primitive type we can use for our UI.
     Convert meters to miles. We could have done this in our view model as well but we will

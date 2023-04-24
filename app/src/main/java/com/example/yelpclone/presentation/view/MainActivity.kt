@@ -8,11 +8,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.yelpclone.data.model.YelpCoordinates
+import com.example.yelpclone.data.model.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.domain.util.Constants
 import com.example.yelpclone.domain.util.Resource
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         private const val BEARER = "Bearer ${Constants.API_KEY}"
         private const val SEARCH_TERM = "Avocado Toast"
         private const val LOCATION = "New York"
+        const val EXTRA_ID = "EXTRA_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +50,7 @@ class MainActivity : AppCompatActivity() {
             yelpAdapter =
                 RestaurantsAdapter(this@MainActivity, object : RestaurantsAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {
-                        val intent = Intent(this@MainActivity, MapsActivity::class.java)
-                        startActivity(intent)
+                        navigateToMaps(position)
                     }
                 })
             adapter = yelpAdapter
@@ -56,10 +60,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun determineSearchState() {
-        viewModel.getRestaurants(BEARER, SEARCH_TERM, LOCATION)
-        binding.apply {
+    private fun setRestaurants() = viewModel.getRestaurants(BEARER, SEARCH_TERM, LOCATION)
 
+    private fun navigateToMaps(position: Int) = run {
+        val intent = Intent(this@MainActivity, MapsActivity::class.java)
+        setRestaurants()
+        lifecycleScope.launch {
+            viewModel.searchState.collect {
+                when (it) {
+                    is Resource.Success -> {
+                        val lat =
+                            it.data!!.restaurants[position].coordinates.latitude
+                        val long =
+                            it.data.restaurants[position].coordinates.longitude
+                        intent.putExtra(EXTRA_ID, lat.toString())
+                        intent.putExtra(EXTRA_ID, lat.toString())
+                    }
+                    else -> {
+                        Snackbar.make(
+                            binding.root,
+                            "Couldn't navigate to maps sadly...",
+                            LENGTH_LONG
+                        ).setAction("Ok") { Unit }.show()
+                    }
+                }
+            }
+        }
+        startActivity(intent)
+    }
+
+    private fun determineSearchState() {
+        setRestaurants()
+        binding.apply {
             lifecycleScope.launch {
                 viewModel.searchState.collect { response ->
 

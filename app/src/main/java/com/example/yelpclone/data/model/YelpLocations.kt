@@ -1,6 +1,7 @@
 package com.example.yelpclone.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class YelpLocations(
     val city: String,
@@ -10,4 +11,4 @@ data class YelpLocations(
     val state: String,
     val address1: String,
     @SerializedName("zip_code") val zipCode: String
-)
+) : Serializable
