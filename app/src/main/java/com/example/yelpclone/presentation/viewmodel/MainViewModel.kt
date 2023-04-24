@@ -10,6 +10,7 @@ import com.example.yelpclone.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,8 +27,8 @@ class MainViewModel @Inject constructor(
         Log.d(VIEW_MODEL, "View model initialized.")
     }
 
-    private var _searchState: MutableLiveData<Resource<YelpSearchResult?>> = MutableLiveData()
-    val searchState: MutableLiveData<Resource<YelpSearchResult?>> get() = _searchState
+    private var _searchState: MutableStateFlow<Resource<YelpSearchResult?>> = MutableStateFlow(Resource.Loading())
+    val searchState: MutableStateFlow<Resource<YelpSearchResult?>> get() = _searchState
 
     fun getRestaurants(authHeader: String, searchTerm: String, location: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -39,17 +40,17 @@ class MainViewModel @Inject constructor(
                     repositoryImpl.searchRestaurants(authHeader, searchTerm, location)) {
 
                     is Resource.Loading -> {
-                        _searchState.postValue(Resource.Loading())
+                        _searchState.value = Resource.Loading()
                         Log.d(VIEW_MODEL, "Loading restaurants.")
                     }
 
                     is Resource.Error -> {
-                        _searchState.postValue(Resource.Error(apiResult.message.toString()))
+                        _searchState.value = Resource.Error(apiResult.message.toString())
                         Log.d(VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
                     }
 
                     is Resource.Success -> {
-                        _searchState.postValue(Resource.Success(apiResult.data))
+                        _searchState.value = Resource.Success(apiResult.data)
                         Log.d(VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
                     }
                 }
