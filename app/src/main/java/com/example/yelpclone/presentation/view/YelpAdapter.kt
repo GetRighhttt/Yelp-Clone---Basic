@@ -19,7 +19,7 @@ import com.example.yelpclone.databinding.YelpListItemBinding
 
 class RestaurantsAdapter(
     private val context: Context,
-    val onClickListener: OnClickListener
+    private val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>() {
 
     interface OnClickListener {
