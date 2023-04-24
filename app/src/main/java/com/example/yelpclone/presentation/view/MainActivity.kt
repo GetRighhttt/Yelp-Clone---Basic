@@ -1,5 +1,6 @@
 package com.example.yelpclone.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,15 +45,9 @@ class MainActivity : AppCompatActivity() {
             yelpAdapter =
                 RestaurantsAdapter(this@MainActivity, object : RestaurantsAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {
-                        materialDialog(
-                            this@MainActivity,
-                            "WOAH!!",
-                            "Slow down there buddy! We haven't gotten that far yet! " +
-                                    "Don't worry, next time you click on this position:" +
-                                    " $position, it will be set up!"
-                        )
+                        val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                        startActivity(intent)
                     }
-
                 })
             adapter = yelpAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)

@@ -13,4 +13,5 @@
     <string name="_3000m">3000m</string>
     <string name="price">$500</string>
     <string name="yelp_clone">Yelp Clone</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
