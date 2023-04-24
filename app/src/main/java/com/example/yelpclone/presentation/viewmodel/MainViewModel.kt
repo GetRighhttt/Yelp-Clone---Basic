@@ -21,17 +21,17 @@ class MainViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
+    private var _searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> = MutableStateFlow(
+        SearchEvent.Idle()
+    )
+    val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
+
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.API_KEY}"
         private const val SEARCH_TERM = "Avocado Toast"
         private const val LOCATION = "New York"
     }
-
-    private var _searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> = MutableStateFlow(
-        SearchEvent.Idle()
-    )
-    val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
 
     init {
         // set the initial state to Loading() so the progress bar shows
