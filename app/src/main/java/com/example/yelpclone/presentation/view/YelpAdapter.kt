@@ -2,6 +2,7 @@ package com.example.yelpclone.presentation.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -17,8 +18,13 @@ import com.example.yelpclone.data.model.YelpRestaurants
 import com.example.yelpclone.databinding.YelpListItemBinding
 
 class RestaurantsAdapter(
-    private val context: Context
+    private val context: Context,
+    val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>() {
+
+    interface OnClickListener {
+        fun onItemClick(position: Int)
+    }
 
     companion object {
 
@@ -72,23 +78,11 @@ class RestaurantsAdapter(
                         )
                     )
                     .into(ivYelpImage)
-
-                root.setOnClickListener {
-                    onItemClickListener?.let {
-                        it(restaurant)
-                    }
-                }
             }
         }
 
         // Needed for animation
         val yelpListItem = binding.yelpItem
-    }
-
-    private var onItemClickListener: ((YelpRestaurants) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: ((YelpRestaurants) -> Unit)?) {
-        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -100,6 +94,9 @@ class RestaurantsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val restaurant = differ.currentList[position]
         holder.bind(restaurant)
+        holder.yelpListItem.setOnClickListener {
+            onClickListener.onItemClick(position)
+        }
         holder.yelpListItem.startAnimation( // animation for recycler view
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.favorite_anim)
         )

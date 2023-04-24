@@ -41,7 +41,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.rvRestaurantList.apply {
-            yelpAdapter = RestaurantsAdapter(this@MainActivity)
+            yelpAdapter =
+                RestaurantsAdapter(this@MainActivity, object : RestaurantsAdapter.OnClickListener {
+                    override fun onItemClick(position: Int) {
+                        materialDialog(
+                            this@MainActivity,
+                            "WOAH!!",
+                            "Slow down there buddy! We haven't gotten that far yet! " +
+                                    "Don't worry, next time you click on this position:" +
+                                    " $position, it will be set up!"
+                        )
+                    }
+
+                })
             adapter = yelpAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }.also {
@@ -81,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                                 this@MainActivity,
                                 "SUCCESS!",
                                 "Hooray! We were able to fetch " +
-                                        "${response.data!!.total.toString()} restaurants!"
+                                        "${response.data!!.total} restaurants!"
                             )
                             pbMain.visibility = View.GONE
                             Log.d(MAIN, "Successfully updated UI with data: ${response.data}")
