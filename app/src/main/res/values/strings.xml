@@ -14,4 +14,8 @@
     <string name="price">$500</string>
     <string name="yelp_clone">Yelp Clone</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="more">More</string>
 </resources>

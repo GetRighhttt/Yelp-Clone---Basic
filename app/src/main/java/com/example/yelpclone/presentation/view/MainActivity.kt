@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.yelpclone.R
 import com.example.yelpclone.data.model.YelpCoordinates
 import com.example.yelpclone.data.model.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityMainBinding
@@ -46,6 +47,54 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         determineSearchState()
+        menuItemSelection()
+    }
+
+    private fun menuItemSelection() {
+        binding.apply {
+            topAppBar.setNavigationOnClickListener {
+                materialDialog(
+                    this@MainActivity,
+                    "Navigation!".uppercase(),
+                    "You clicked on the Navigation Icon. Functionality Coming soon!"
+                ).show()
+            }.also {
+                topAppBar.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.search -> {
+                            materialDialog(
+                                this@MainActivity,
+                                "Search!".uppercase(),
+                                "You clicked on the Search Icon. Functionality Coming soon!"
+                            ).show()
+                            true
+                        }
+
+                        R.id.save -> {
+                            materialDialog(
+                                this@MainActivity,
+                                "Save!".uppercase(),
+                                "You clicked on the Save Icon. Functionality Coming soon!"
+                            ).show()
+                            true
+                        }
+
+                        R.id.more -> {
+                            materialDialog(
+                                this@MainActivity,
+                                "More!".uppercase(),
+                                "You clicked on the More Icon. Functionality Coming soon!"
+                            ).show()
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -67,6 +116,7 @@ class MainActivity : AppCompatActivity() {
                                         LAT = intent.putExtra(EXTRA_ID, lat).toString()
                                         LONG = intent.putExtra(EXTRA_ID, long).toString()
                                     }
+
                                     else -> {
                                         Snackbar.make(
                                             binding.root,
