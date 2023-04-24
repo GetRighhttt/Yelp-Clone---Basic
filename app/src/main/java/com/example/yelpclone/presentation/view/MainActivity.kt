@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                         val long =
                             it.data.restaurants[position].coordinates.longitude
                         intent.putExtra(EXTRA_ID, lat.toString())
-                        intent.putExtra(EXTRA_ID, lat.toString())
+                        intent.putExtra(EXTRA_ID, long.toString())
                     }
                     else -> {
                         Snackbar.make(
