@@ -9,9 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
-import com.example.yelpclone.core.events.Resource
-import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.core.events.SearchEvent
+import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
@@ -176,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                                     this@MainActivity,
                                     "SUCCESS!",
                                     "Hooray! We were able to fetch " +
-                                            "${response.results!!.total} restaurants!"
+                                            "${response.results.total} restaurants!"
                                 )
                                 pbMain.visibility = View.GONE
                                 Log.d(
