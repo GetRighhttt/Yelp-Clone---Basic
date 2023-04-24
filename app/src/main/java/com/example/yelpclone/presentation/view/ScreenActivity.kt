@@ -1,12 +1,10 @@
 package com.example.yelpclone.presentation.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.core.view.ViewCompat.animate
-import com.example.yelpclone.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.databinding.ActivitySplashScreenBinding
 
 class ScreenActivity : AppCompatActivity() {
