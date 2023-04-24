@@ -2,4 +2,14 @@
     <string name="app_name">Yelp Clone</string>
     <string name="image">Image</string>
     <string name="name">NAME</string>
+    <string name="_500">500</string>
+    <string name="_300_wishful_lane">300 Wishful Lane</string>
+    <string name="tampa">Tampa</string>
+    <string name="fl">FL</string>
+    <string name="phone_Num">9898347433</string>
+    <string name="_500_reviews">500 Reviews</string>
+    <string name="us">US</string>
+    <string name="dinner">Dinner</string>
+    <string name="_3000m">3000m</string>
+    <string name="price">$500</string>
 </resources>

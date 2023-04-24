@@ -3,12 +3,10 @@ package com.example.yelpclone.presentation.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.domain.util.Constants
 import com.example.yelpclone.domain.util.Resource
@@ -63,7 +61,8 @@ class MainActivity : AppCompatActivity() {
                             materialDialog(
                                 this@MainActivity,
                                 "ERROR!",
-                                "Oops! Looks like we couldn't fetch any data Try again in a few minutes!"
+                                "Oops! Looks like we couldn't fetch any data!" +
+                                        " Try again in a few minutes!"
                             )
                             pbMain.visibility = View.GONE
                             Log.d(MAIN, "Failed to update UI with data: ${response.message}")
@@ -81,7 +80,8 @@ class MainActivity : AppCompatActivity() {
                             materialDialog(
                                 this@MainActivity,
                                 "SUCCESS!",
-                                "Hooray! We were able to fetch ${response.data} restaurants!"
+                                "Hooray! We were able to fetch " +
+                                        "${response.data!!.total.toString()} restaurants!"
                             )
                             pbMain.visibility = View.GONE
                             Log.d(MAIN, "Successfully updated UI with data: ${response.data}")

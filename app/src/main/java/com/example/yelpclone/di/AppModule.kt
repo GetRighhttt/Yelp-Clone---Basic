@@ -47,8 +47,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCurrencyViewModelFactory(
-        repository: RepositoryImpl
+        repository: RepositoryImpl,
+        dispatcherProvider: DispatcherProvider
     ): MainViewModelFactory {
-        return MainViewModelFactory(repository)
+        return MainViewModelFactory(repository, dispatcherProvider)
     }
 }

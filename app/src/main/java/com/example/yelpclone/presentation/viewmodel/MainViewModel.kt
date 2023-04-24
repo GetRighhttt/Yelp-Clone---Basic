@@ -1,14 +1,13 @@
 package com.example.yelpclone.presentation.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.data.model.YelpSearchResult
 import com.example.yelpclone.domain.repository.RepositoryImpl
+import com.example.yelpclone.domain.util.DispatcherProvider
 import com.example.yelpclone.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repositoryImpl: RepositoryImpl
+    private val repositoryImpl: RepositoryImpl,
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     companion object {
@@ -31,9 +31,9 @@ class MainViewModel @Inject constructor(
     val searchState: MutableStateFlow<Resource<YelpSearchResult?>> get() = _searchState
 
     fun getRestaurants(authHeader: String, searchTerm: String, location: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            delay(1000)
+        viewModelScope.launch(dispatcherProvider.ioCD) {
+            // delay to show our progress bar
+            delay(1500)
 
             try {
                 when (val apiResult =
