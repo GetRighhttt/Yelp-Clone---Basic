@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
+import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.presentation.viewmodel.MainViewModel
@@ -154,21 +155,37 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         is SearchEvent.Success -> {
-                            response.results?.let {
-                                yelpAdapter.differ.submitList(it.restaurants.toList())
+                            if (response.results!!.restaurants.isEmpty()) {
+                                materialDialog(
+                                    this@MainActivity,
+                                    "ERROR!",
+                                    "Well looks like the call worked... but the results " +
+                                            "are empty! Try changing your criteria."
+                                )
+                                pbMain.visibility = View.GONE
+                                Log.d(
+                                    MAIN,
+                                    "Failed to update UI with data: ${response.errorMessage}"
+                                )
+                            } else {
+                                response.results.let {
+                                    yelpAdapter.differ.submitList(it.restaurants.toList())
+                                }
+                                materialDialog(
+                                    this@MainActivity,
+                                    "SUCCESS!",
+                                    "Hooray! We were able to fetch " +
+                                            "${response.results!!.total} restaurants!"
+                                )
+                                pbMain.visibility = View.GONE
+                                Log.d(
+                                    MAIN,
+                                    "Successfully updated UI with data: ${response.results}"
+                                )
                             }
-                            materialDialog(
-                                this@MainActivity,
-                                "SUCCESS!",
-                                "Hooray! We were able to fetch " +
-                                        "${response.results!!.total} restaurants!"
-                            )
-                            pbMain.visibility = View.GONE
-                            Log.d(MAIN, "Successfully updated UI with data: ${response.results}")
-
                         }
 
-                        is SearchEvent.Idle -> TODO()
+                        is SearchEvent.Idle -> { Log.d(MAIN, "Idle State currently...") }
                     }
                 }
             }
@@ -181,12 +198,12 @@ class MainActivity : AppCompatActivity() {
         answerText: String
     ) = object : MaterialAlertDialogBuilder(this) {
         val dialog = MaterialAlertDialogBuilder(mainActivity)
-                .setTitle(titleText)
-                .setMessage(answerText)
-                .setPositiveButton("OK") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            .setTitle(titleText)
+            .setMessage(answerText)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
 
     }
 

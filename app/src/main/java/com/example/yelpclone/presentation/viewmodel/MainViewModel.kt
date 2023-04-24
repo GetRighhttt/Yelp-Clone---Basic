@@ -24,8 +24,8 @@ class MainViewModel @Inject constructor(
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.API_KEY}"
-        private const val SEARCH_TERM = "Avocado Toast"
-        private const val LOCATION = "New York"
+        private const val SEARCH_TERM = "Bacon"
+        private const val LOCATION = "Florida"
     }
 
     private var _searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> = MutableStateFlow(
