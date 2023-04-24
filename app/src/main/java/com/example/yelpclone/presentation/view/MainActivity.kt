@@ -163,6 +163,7 @@ class MainActivity : AppCompatActivity() {
                                             "are empty! Try changing your criteria."
                                 )
                                 pbMain.visibility = View.GONE
+                                noResults.visibility = View.VISIBLE
                                 Log.d(
                                     MAIN,
                                     "Failed to update UI with data: ${response.errorMessage}"
