@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
@@ -99,7 +100,11 @@ class MainActivity : AppCompatActivity() {
                         POSITION = position.toString()
                         val intent = Intent(this@MainActivity, MapsActivity::class.java)
                         lifecycleScope.launch {
-                            viewModel.searchState.collect {
+                            /*
+                            Flow isn't lifecycle aware so we must flow with lifecycle to handle resource
+                            consumption.
+                             */
+                            viewModel.searchState.flowWithLifecycle(lifecycle).collect {
                                 when (it) {
                                     is SearchEvent.Success -> {
                                         val lat =
@@ -134,7 +139,11 @@ class MainActivity : AppCompatActivity() {
     private fun determineSearchState() {
         binding.apply {
             lifecycleScope.launch {
-                viewModel.searchState.collect { response ->
+                /*
+                Flow isn't lifecycle aware so we must flow with lifecycle to handle resource
+                consumption.
+                */
+                viewModel.searchState.flowWithLifecycle(lifecycle).collect { response ->
 
                     when (response) {
                         is SearchEvent.Failure -> {
