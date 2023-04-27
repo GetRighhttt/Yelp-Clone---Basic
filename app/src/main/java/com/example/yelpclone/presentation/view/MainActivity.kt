@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
+import android.widget.AbsListView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
@@ -29,6 +29,15 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
+
+    /*
+    Paging without paging3.
+     */
+    private var isScrolling = false // by default false
+    private var page: Int = 1
+    private var isLoading = false
+    private var isAtTheLastPage = false
+    private var pages = 0
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
@@ -136,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                             viewModel.searchState.flowWithLifecycle(lifecycle).collect {
                                 when (it) {
                                     is SearchEvent.Success -> {
+                                        addOnScrollListener(this@MainActivity.onScrollListener)
                                         val lat =
                                             it.results!!.restaurants[POSITION.toInt()].coordinates.latitude
                                         val long =
@@ -199,12 +209,23 @@ class MainActivity : AppCompatActivity() {
                                     "Well looks like the call worked... but the results " +
                                             "are empty! Try changing your criteria."
                                 )
+                                /*
+                                Paging without a library
+                                 */
+                                pages = if (response.results.total % 50 == 0) {
+                                    response.results.total / 20 // check if last page
+                                } else {
+                                    response.results.total / 40 + 1
+                                }
+                                isAtTheLastPage = page == pages
+
                                 pbMain.visibility = View.GONE
                                 noResults.visibility = View.VISIBLE
                                 Log.d(
                                     MAIN,
                                     "Failed to update UI with data: ${response.errorMessage}"
                                 )
+
                             } else {
                                 response.results.let {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())
@@ -229,6 +250,47 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    /*
+   Override this method for manual paging example.
+   Paging - fetching data from api to load more pages.
+    */
+    private val onScrollListener = object : RecyclerView.OnScrollListener() {
+
+        /*
+        Method to define what happens when the scroll state is changed.
+         */
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+
+        /*
+        Method to define what happens when we are scrolling, and to determine when we should
+        be paging.
+         */
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            binding.rvRestaurantList.apply {
+                val layoutManager = layoutManager as LinearLayoutManager
+                val sizeOfCurrentList = layoutManager.itemCount
+                val visibleItems = layoutManager.childCount
+                val positionOfStartingItem = layoutManager.findFirstVisibleItemPosition()
+
+                val hasReachedToEnd = positionOfStartingItem + visibleItems >= sizeOfCurrentList
+                val shouldPaginate = !isLoading && !isAtTheLastPage
+                        && hasReachedToEnd && isScrolling
+                if (shouldPaginate) {
+                    pages++
+                    viewModel.getRestaurants()
+                    isScrolling = false
+                }
+            }
+        }
+
     }
 
     private fun materialDialog(
