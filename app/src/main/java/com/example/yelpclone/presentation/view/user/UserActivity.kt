@@ -2,12 +2,12 @@ package com.example.yelpclone.presentation.view.user
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +16,7 @@ import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
 import com.example.yelpclone.presentation.view.main.MainActivity
-import com.example.yelpclone.presentation.viewmodel.user.UserViewModel
+import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -154,7 +154,6 @@ class UserActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun materialDialog(
         context: Context,

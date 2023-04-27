@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view
+package com.example.yelpclone.presentation.view.splashscreens
 
 import android.content.Intent
 import android.os.Bundle

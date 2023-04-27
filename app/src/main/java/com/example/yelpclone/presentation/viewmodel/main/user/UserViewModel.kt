@@ -1,8 +1,10 @@
-package com.example.yelpclone.presentation.viewmodel.user
+package com.example.yelpclone.presentation.viewmodel.main.user
 
 import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.core.events.SearchEvent
@@ -28,12 +30,12 @@ class UserViewModel @Inject constructor(
 
     companion object {
         private const val USER_VIEW_MODEL = "USER_VIEW_MODEL"
-        private const val USER_SIZE = 20
     }
 
     init {
         _userState.value = SearchEvent.Loading()
-        Log.d(USER_VIEW_MODEL,
+        Log.d(
+            USER_VIEW_MODEL,
             "User View Model is initialized. getRestaurants() method has been called. ")
         getUsers()
     }
@@ -42,7 +44,7 @@ class UserViewModel @Inject constructor(
         delay(1000)
 
         try{
-            when(val result = repositoryImpl.getUsers(USER_SIZE)) {
+            when(val result = repositoryImpl.getUsers()) {
                 is Resource.Error -> {
                     _userState.value = SearchEvent.Failure(result.message.toString())
                     Log.d(USER_VIEW_MODEL, "FAILED to find data: ${result.message}")

@@ -1,13 +1,11 @@
-package com.example.yelpclone.presentation.view
+package com.example.yelpclone.presentation.view.splashscreens
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.example.yelpclone.R
 import com.example.yelpclone.databinding.ActivitySecondStartBinding
-import com.example.yelpclone.presentation.view.main.MainActivity
 import com.example.yelpclone.presentation.view.user.UserActivity
 
 class SecondStartActivity : AppCompatActivity() {

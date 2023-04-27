@@ -18,10 +18,10 @@
         android:theme="@style/Theme.YelpClone"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.view.SecondStartActivity"
+            android:name=".presentation.view.splashscreens.SecondStartActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.view.ScreenActivity"
+            android:name=".presentation.view.splashscreens.ScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

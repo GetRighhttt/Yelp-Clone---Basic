@@ -8,7 +8,7 @@ import com.example.yelpclone.data.api.UserRetrofitInstance
 import com.example.yelpclone.data.api.UserService
 import com.example.yelpclone.domain.UserRepositoryImpl
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModelFactory
-import com.example.yelpclone.presentation.viewmodel.user.UserViewModelFactory
+import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

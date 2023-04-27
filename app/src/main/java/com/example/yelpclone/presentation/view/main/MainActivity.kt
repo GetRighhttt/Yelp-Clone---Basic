@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.presentation.view.SecondStartActivity
+import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
-import com.example.yelpclone.presentation.view.user.UserActivity
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar

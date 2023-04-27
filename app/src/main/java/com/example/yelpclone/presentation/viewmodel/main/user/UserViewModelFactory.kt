@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.viewmodel.user
+package com.example.yelpclone.presentation.viewmodel.main.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
