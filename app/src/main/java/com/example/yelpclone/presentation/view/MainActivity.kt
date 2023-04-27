@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }.also {
                 topAppBar.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.search -> {
+                        R.id.action_search -> {
                             materialDialog(
                                 this@MainActivity,
                                 "Search!".uppercase(),
