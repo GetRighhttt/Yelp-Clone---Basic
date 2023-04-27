@@ -183,8 +183,7 @@ class MainActivity : AppCompatActivity() {
                                 materialDialog(
                                     this@MainActivity,
                                     "SUCCESS!",
-                                    "Hooray! We were able to fetch " +
-                                            "${response.results.total} restaurants!"
+                                    "Hooray! We were able to fetch ${response.results.total} restaurants!"
                                 )
                                 pbMain.visibility = View.GONE
                                 Log.d(
@@ -194,7 +193,9 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        is SearchEvent.Idle -> { Log.d(MAIN, "Idle State currently...") }
+                        is SearchEvent.Idle -> {
+                            Log.d(MAIN, "Idle State currently...")
+                        }
                     }
                 }
             }
