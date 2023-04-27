@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +47,31 @@ class MainActivity : AppCompatActivity() {
         determineSearchState()
         menuItemSelection()
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.tool_bar_menu, menu)
+//
+//        val searchItem = menu?.findItem(R.id.action_search)
+//        val searchView = searchItem?.actionView as SearchView
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                if (query != null) {
+//                    binding.rvRestaurantList.smoothScrollToPosition(0)
+//                    viewModel.getRestaurants(query)
+//                    searchView.clearFocus()
+//                }
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                binding.rvRestaurantList.smoothScrollToPosition(0)
+//                return true
+//            }
+//        })
+//        return true
+//    }
 
     private fun menuItemSelection() {
         binding.apply {
@@ -95,6 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.rvRestaurantList.apply {
+            hasFixedSize()
             yelpAdapter =
                 RestaurantsAdapter(this@MainActivity, object : RestaurantsAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {

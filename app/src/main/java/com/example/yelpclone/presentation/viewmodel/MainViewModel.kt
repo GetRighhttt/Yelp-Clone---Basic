@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
         Log.d(VIEW_MODEL, "View Model is initialized. getRestaurants() method has been called. ")
     }
 
-    private fun getRestaurants() {
+    fun getRestaurants(query: String = DEFAULT_SEARCH_TERM) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
             delay(1500)
