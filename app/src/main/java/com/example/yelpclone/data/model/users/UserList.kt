@@ -17,5 +17,4 @@ data class UserList(
     @SerializedName("phone_number") val phoneNumber: String,
     val employment: Employment,
     val address: UserAddress
-
     ): Parcelable

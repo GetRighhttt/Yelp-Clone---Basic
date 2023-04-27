@@ -21,4 +21,6 @@
     <string name="gender">Male</string>
     <string name="employment">Engineer</string>
     <string name="go_to_users">Go To Users</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="stefan_yahoo_com">stefan@yahoo.com</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view
+package com.example.yelpclone.presentation.view.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.presentation.viewmodel.MainViewModel
+import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
+import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
-
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"

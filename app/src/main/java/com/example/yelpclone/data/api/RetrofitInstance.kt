@@ -27,10 +27,10 @@ object RetrofitInstance {
     }
 
     private val gson: GsonConverterFactory = GsonConverterFactory.create()
-    val retrofit: YelpService = Retrofit.Builder()
+    val retrofit: ApiService = Retrofit.Builder()
         .baseUrl(Constants.RESTAURANTS_BASE_URL)
         .addConverterFactory(gson)
         .client(provideHttpInterceptor())
         .build()
-       .create(YelpService::class.java)
+       .create(ApiService::class.java)
 }

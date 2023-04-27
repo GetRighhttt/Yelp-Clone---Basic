@@ -1,6 +1,6 @@
 package com.example.yelpclone.domain
 
-import com.example.yelpclone.data.api.YelpService
+import com.example.yelpclone.data.api.ApiService
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.model.users.UserList
@@ -13,7 +13,7 @@ Implementing methods outlined in our repository. Serves as layer between api and
  */
 @Singleton
 class RepositoryImpl @Inject constructor (
-    private val yelpService: YelpService
+    private val apiService: ApiService
 ) : YelpRepository {
 
     override suspend fun searchRestaurants(
@@ -24,7 +24,7 @@ class RepositoryImpl @Inject constructor (
         offset: Int
     ): Resource<YelpSearchResult> {
         return try {
-            val response = yelpService.searchRestaurants(
+            val response = apiService.searchRestaurants(
                 authHeader,
                 searchTerm,
                 location,
@@ -44,7 +44,7 @@ class RepositoryImpl @Inject constructor (
 
     override suspend fun getUsers(size: Int): Resource<List<UserList>> {
         return try {
-           val response = yelpService.getUsers(size)
+           val response = apiService.getUsers(size)
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
                 Resource.Success(result)

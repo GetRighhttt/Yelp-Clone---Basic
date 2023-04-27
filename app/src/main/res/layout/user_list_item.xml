@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/yelp_item"
+    android:id="@+id/user_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -43,13 +43,13 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/name"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/user_gender"
+                    android:id="@+id/user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
@@ -57,8 +57,8 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="@string/gender"
-                    android:textSize="13sp"
+                    android:text="@string/stefan_yahoo_com"
+                    android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/user_full_name" />
@@ -73,7 +73,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/employment"
-                    android:textSize="13sp" />
+                    android:textSize="17sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/user_Address"
@@ -86,7 +86,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/_300_wishful_lane"
-                    android:textSize="13sp" />
+                    android:textSize="17sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:text="@string/tampa"
-                        android:textSize="13sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -113,7 +113,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="@string/fl"
-                        android:textSize="13sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_City"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +125,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="@string/us"
-                        android:textSize="13sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_State"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -137,7 +137,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text=""
-                        android:textSize="13sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_Country"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +155,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/phone_Num"
-                    android:textSize="13sp" />
+                    android:textSize="17sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/user_Password"
@@ -168,7 +168,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/dinner"
-                    android:textSize="13sp" />
+                    android:textSize="17sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view
+package com.example.yelpclone.presentation.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

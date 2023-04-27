@@ -1,10 +1,10 @@
 package com.example.yelpclone.di
 
 import com.example.yelpclone.data.api.RetrofitInstance
-import com.example.yelpclone.data.api.YelpService
+import com.example.yelpclone.data.api.ApiService
 import com.example.yelpclone.domain.RepositoryImpl
 import com.example.yelpclone.core.util.DispatcherProvider
-import com.example.yelpclone.presentation.viewmodel.MainViewModelFactory
+import com.example.yelpclone.presentation.viewmodel.main.MainViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,11 +24,11 @@ object AppModule {
     */
     @Singleton
     @Provides
-    fun provideApiService(): YelpService = RetrofitInstance.retrofit
+    fun provideApiService(): ApiService = RetrofitInstance.retrofit
 
     @Singleton
     @Provides
-    fun provideRepository(yelpService: YelpService): RepositoryImpl = RepositoryImpl(yelpService)
+    fun provideRepository(apiService: ApiService): RepositoryImpl = RepositoryImpl(apiService)
 
     @Singleton
     @Provides

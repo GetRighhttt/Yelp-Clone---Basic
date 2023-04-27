@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface YelpService {
+interface ApiService {
 
     /*
     We are going to search for Yelp restaurants. In the API documentation, it specifies that we
