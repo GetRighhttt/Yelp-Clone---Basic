@@ -5,7 +5,7 @@
     android:id="@+id/yelp_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     android:elevation="15dp"
     app:cardCornerRadius="17dp">
 
@@ -203,7 +203,7 @@
                         android:drawablePadding="4dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@string/us"
+                        android:text=""
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_Country"
