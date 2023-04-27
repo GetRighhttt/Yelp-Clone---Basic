@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
     private fun getRestaurants(query: String = DEFAULT_SEARCH_TERM) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
-            delay(1500)
+            delay(1000)
 
             try {
                 when (val apiResult =
@@ -76,7 +76,7 @@ class MainViewModel @Inject constructor(
                 }
 
             } catch (e: Exception) {
-                Log.e(MAIN_VIEW_MODEL, "Error getting restaurants", e)
+                Log.e(MAIN_VIEW_MODEL, "Error getting restaurants!", e)
             }
         }
     }

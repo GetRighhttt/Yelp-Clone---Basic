@@ -17,14 +17,11 @@ class ScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.ivYelp.animate().apply {
-            duration = 300L
-            rotationXBy(180F)
-            rotationYBy(180F)
+            duration = 200L
+            rotationXBy(3600F)
         }.withEndAction {
             binding.ivYelp.animate().apply {
-                duration = 500L
-                rotationXBy(-180F)
-                rotationYBy(-180F)
+                rotationXBy(-360F)
             }
         }
 
@@ -35,7 +32,7 @@ class ScreenActivity : AppCompatActivity() {
             Intent(this@ScreenActivity, MainActivity::class.java)
         )
         finish()
-    }, 2000)
+    }, 1300)
 }
 
 override fun onDestroy() {

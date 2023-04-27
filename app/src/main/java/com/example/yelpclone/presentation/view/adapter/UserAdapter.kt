@@ -58,12 +58,11 @@ class UserAdapter(
                     userEmail.text = user.email
                     userEmployment.text = user.employment.title
                     userAddress.text = "${user.address.streetNumber} ${user.address.streetName}"
-                    userCity.text = user.address.city
-                    userState.text = user.address.state
-                    userCountry.text = user.address.country
+                    userState.text = "${user.address.state}, "
+                    userCountry.text = "${user.address.country}, "
                     userZipcode.text = user.address.zipCode
                     userPhoneNumber.text = user.phoneNumber
-                    userPassword.text = user.password
+                    userSkill.text = user.employment.skill
 
                     // scale and transform image to our needs using Glide.
                     Glide.with(userImage.context)

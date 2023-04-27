@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
+import com.example.yelpclone.presentation.view.SecondStartActivity
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
 import com.example.yelpclone.presentation.view.user.UserActivity
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
+
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
@@ -170,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             .setMessage(message)
             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this@MainActivity, UserActivity::class.java)
+                val intent = Intent(this@MainActivity, SecondStartActivity::class.java)
                 startActivity(intent)
             }
             .show()

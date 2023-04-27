@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.ScreenActivity">
+    tools:context=".presentation.view.SecondStartActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_yelp"
+        android:id="@+id/second_iv_yelp"
         android:layout_width="140dp"
         android:layout_height="180dp"
         android:src="@drawable/yelp"

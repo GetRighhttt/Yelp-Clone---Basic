@@ -22,9 +22,4 @@ interface ApiService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ) : Response<YelpSearchResult>
-
-    @GET("users")
-    suspend fun getUsers(
-        @Query("size") size: Int
-    ): Response<List<UserList>>
 }

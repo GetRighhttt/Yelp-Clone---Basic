@@ -41,19 +41,5 @@ class RepositoryImpl @Inject constructor (
             Resource.Error(e.message ?: "Unable to retrieve restaurants.")
         }
     }
-
-    override suspend fun getUsers(size: Int): Resource<List<UserList>> {
-        return try {
-           val response = apiService.getUsers(size)
-            val result = response.body()
-            if ((response.isSuccessful) && (result != null)) {
-                Resource.Success(result)
-            } else {
-                Resource.Error(response.message())
-            }
-        }catch (e: Exception) {
-            Resource.Error(e.message ?: "Unable to retrieve users.")
-        }
-    }
 }
 

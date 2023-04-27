@@ -17,6 +17,4 @@ interface YelpRepository {
         location: String,
         limit: Int,
         offset : Int): Resource<YelpSearchResult>
-
-    suspend fun getUsers(size: Int): Resource<List<UserList>>
 }

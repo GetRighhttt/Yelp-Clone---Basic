@@ -12,7 +12,7 @@ Serves as a singleton for our retrofit instance.
  */
 object RetrofitInstance {
 
-    private fun provideHttpInterceptor(): OkHttpClient {
+    fun provideHttpInterceptor(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
@@ -33,4 +33,15 @@ object RetrofitInstance {
         .client(provideHttpInterceptor())
         .build()
        .create(ApiService::class.java)
+}
+
+object UserRetrofitInstance {
+
+    private val gson: GsonConverterFactory = GsonConverterFactory.create()
+    val userRetrofit: UserService = Retrofit.Builder()
+        .baseUrl(Constants.RANDOM_BASE_URL)
+        .addConverterFactory(gson)
+        .client(RetrofitInstance.provideHttpInterceptor())
+        .build()
+        .create(UserService::class.java)
 }
