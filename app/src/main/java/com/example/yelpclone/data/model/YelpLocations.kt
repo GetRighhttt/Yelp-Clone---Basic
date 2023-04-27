@@ -10,5 +10,5 @@ data class YelpLocations(
     val address3: String,
     val state: String,
     val address1: String,
-    @SerializedName("zip_code") val zipCode: String
+    @SerializedName("zip_code") val zipCode: String?
 ) : Serializable

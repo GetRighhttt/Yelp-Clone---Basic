@@ -53,19 +53,21 @@
                             android:text="@string/name"
                             android:textSize="18sp"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_Distance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
+                            android:gravity="center_vertical"
                             android:text="@string/_3000m"
                             android:textSize="13sp"
+                            app:drawableStartCompat="@drawable/baseline_directions_car_24"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,12 +76,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical"
                             android:maxLines="5"
-                            android:text="@string/price"
                             android:textSize="13sp"
+                            app:drawableStartCompat="@drawable/baseline_attach_money_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_Distance"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintTop_toBottomOf="@id/tv_Distance" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,10 +117,10 @@
                         android:layout_weight="1"
                         android:text="@string/_500_reviews"
                         android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_Rating"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,9 +131,11 @@
                     android:layout_gravity="left"
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:maxLines="5"
                     android:text="@string/_300_wishful_lane"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/baseline_house_24" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -141,12 +146,13 @@
                         android:id="@+id/tv_City"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:text="@string/tampa"
-                        android:layout_marginEnd="3dp"
                         android:textSize="13sp"
+                        app:drawableStartCompat="@drawable/baseline_location_city_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_State"
@@ -154,23 +160,29 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fl"
                         android:textSize="13sp"
-                        android:layout_margin="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_City"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_Country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="2dp"
                         android:text="@string/us"
                         android:textSize="13sp"
-                        android:layout_margin="5dp"
-
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_State"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_Zipcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/us"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_Country"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -179,22 +191,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_weight="1"
                     android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:maxLines="5"
                     android:text="@string/phone_Num"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/baseline_person_24" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_Categories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_weight="1"
                     android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:maxLines="5"
                     android:text="@string/dinner"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/baseline_fastfood_24" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -60,9 +60,10 @@ class RestaurantsAdapter(
                 tvAddress.text = restaurant.location.address1
                 tvRating.rating = restaurant.rating.toFloat()
                 tvPhoneNumber.text = restaurant.phone
-                tvCity.text = restaurant.location.city
-                tvCountry.text = restaurant.location.country
-                tvState.text = restaurant.location.state
+                tvCity.text = "${restaurant.location.city}, "
+                tvState.text = " ${restaurant.location.state}, "
+                tvCountry.text = " ${restaurant.location.country}"
+                tvZipcode.text = " ${restaurant.location.zipCode}"
                 tvCategories.text = restaurant.categories[0].title
                 tvDistance.text = restaurant.displayDistance() // converts to nice format
                 tvPrice.text = restaurant.price
