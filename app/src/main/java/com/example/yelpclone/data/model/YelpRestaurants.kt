@@ -1,9 +1,11 @@
 package com.example.yelpclone.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-
+@Parcelize
 data class YelpRestaurants(
     val rating: Double,
     val price: String,
@@ -19,7 +21,7 @@ data class YelpRestaurants(
     @SerializedName("image_url") val imageUrl: String,
     val location: YelpLocations,
     val distance: Double // meters
-) : Serializable {
+) : Parcelable {
     /*
     Need a function to convert distance in meters into a primitive type we can use for our UI.
     Convert meters to miles. We could have done this in our view model as well but we will

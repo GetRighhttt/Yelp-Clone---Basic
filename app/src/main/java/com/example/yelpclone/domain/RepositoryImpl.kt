@@ -4,11 +4,15 @@ import com.example.yelpclone.data.api.YelpService
 import com.example.yelpclone.data.model.YelpSearchResult
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.domain.sot.YelpRepository
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /*
 Implementing methods outlined in our repository. Serves as layer between api and views.
  */
-class RepositoryImpl(
+@Singleton
+class RepositoryImpl @Inject constructor (
     private val yelpService: YelpService
 ) : YelpRepository {
 
