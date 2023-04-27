@@ -17,7 +17,8 @@ interface YelpService {
     suspend fun searchRestaurants(
         @Header("Authorization") authHeader: String,
         @Query("term") searchTerm: String,
-        @Query("location") location: String
+        @Query("location") location: String,
+        @Query("limit") limit: Int
     ) : Response<YelpSearchResult>
 
 }

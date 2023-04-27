@@ -10,5 +10,5 @@ The methods defined here wil be implemented in our repositoryImpl, which will
 then be used as a constructor dependency in our view model.
  */
 interface YelpRepository {
-    suspend fun searchRestaurants(authHeader: String, searchTerm: String, location: String): Resource<YelpSearchResult>
+    suspend fun searchRestaurants(authHeader: String, searchTerm: String, location: String, limit: Int): Resource<YelpSearchResult>
 }

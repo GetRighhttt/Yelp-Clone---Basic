@@ -29,8 +29,9 @@ class MainViewModel @Inject constructor(
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.API_KEY}"
-        private const val SEARCH_TERM = "Avocado Toast"
-        private const val LOCATION = "New York"
+        private const val DEFAULT_SEARCH_TERM = "Avocado Toast"
+        private const val DEFAULT_LOCATION = "New York"
+        private const val DEFAULT_LIMIT = 50
     }
 
     init {
@@ -49,7 +50,12 @@ class MainViewModel @Inject constructor(
 
             try {
                 when (val apiResult =
-                    repositoryImpl.searchRestaurants(BEARER, SEARCH_TERM, LOCATION)) {
+                    repositoryImpl.searchRestaurants(
+                        BEARER,
+                        DEFAULT_SEARCH_TERM,
+                        DEFAULT_LOCATION,
+                        DEFAULT_LIMIT
+                    )) {
 
                     is Resource.Loading -> {
                         _searchState.value = SearchEvent.Loading()

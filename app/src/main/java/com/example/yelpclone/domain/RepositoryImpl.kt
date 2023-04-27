@@ -19,13 +19,15 @@ class RepositoryImpl @Inject constructor (
     override suspend fun searchRestaurants(
         authHeader: String,
         searchTerm: String,
-        location: String
+        location: String,
+        limit: Int
     ): Resource<YelpSearchResult> {
         return try {
             val response = yelpService.searchRestaurants(
                 authHeader,
                 searchTerm,
-                location
+                location,
+                limit
             )
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
