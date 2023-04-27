@@ -34,7 +34,8 @@ class MainViewModel @Inject constructor(
         private const val BEARER = "Bearer ${Constants.API_KEY}"
         private const val DEFAULT_SEARCH_TERM = "Seafood"
         private const val DEFAULT_LOCATION = "Tampa"
-        private const val DEFAULT_LIMIT = 50
+        private const val DEFAULT_LIMIT = 20
+        private const val DEFAULT_OFFSET = 10
     }
 
     init {
@@ -57,7 +58,8 @@ class MainViewModel @Inject constructor(
                         BEARER,
                         DEFAULT_SEARCH_TERM,
                         DEFAULT_LOCATION,
-                        DEFAULT_LIMIT
+                        DEFAULT_LIMIT,
+                        DEFAULT_OFFSET
                     )) {
 
                     is Resource.Loading -> {

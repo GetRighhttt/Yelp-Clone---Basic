@@ -18,7 +18,8 @@ interface YelpService {
         @Header("Authorization") authHeader: String,
         @Query("term") searchTerm: String,
         @Query("location") location: String,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
     ) : Response<YelpSearchResult>
 
 }

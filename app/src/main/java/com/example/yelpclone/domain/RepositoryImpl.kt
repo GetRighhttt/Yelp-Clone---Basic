@@ -20,14 +20,16 @@ class RepositoryImpl @Inject constructor (
         authHeader: String,
         searchTerm: String,
         location: String,
-        limit: Int
+        limit: Int,
+        offset: Int
     ): Resource<YelpSearchResult> {
         return try {
             val response = yelpService.searchRestaurants(
                 authHeader,
                 searchTerm,
                 location,
-                limit
+                limit,
+                offset
             )
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
