@@ -19,5 +19,5 @@ sealed class Resource<T>(
 
     // We'll just pass object of this Loading
     // class, just before making an api call
-    open class Loading<T> : Resource<T>()
+    open class Loading<T>(data: T) : Resource<T>()
 }

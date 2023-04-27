@@ -95,9 +95,10 @@ dependencies {
     Room data persistence library for caching.
      */
     implementation("androidx.room:room-runtime:2.5.1")
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:2.6.0-alpha01")
+    annotationProcessor ("androidx.room:room-compiler:2.5.1")
+    kapt("androidx.room:room-compiler:2.5.1")
     implementation("androidx.room:room-ktx:2.5.1")
+    implementation "androidx.room:room-paging:2.5.1"
 
     /*
     Paging3 Library for pagination.
