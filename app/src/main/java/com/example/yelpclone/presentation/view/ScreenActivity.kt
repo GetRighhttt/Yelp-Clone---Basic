@@ -18,7 +18,7 @@ class ScreenActivity : AppCompatActivity() {
 
         binding.ivYelp.animate().apply {
             duration = 200L
-            rotationXBy(3600F)
+            rotationXBy(360F)
         }.withEndAction {
             binding.ivYelp.animate().apply {
                 rotationXBy(-360F)

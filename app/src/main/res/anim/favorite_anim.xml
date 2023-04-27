@@ -4,12 +4,12 @@
     <!--Visibility animation!-->
     <alpha android:fromAlpha="0"
         android:toAlpha="1"
-        android:duration="600"/>
+        android:duration="300"/>
 
     <scale android:fromXScale="0"
         android:fromYScale="0"
         android:toXScale="1"
         android:toYScale="1"
-        android:duration="600"/>
+        android:duration="300"/>
 
 </set>

@@ -21,7 +21,7 @@ class SecondStartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.secondIvYelp.animate().apply {
-            duration = 200L
+            duration = 250L
             rotationYBy(360F)
         }.withEndAction {
             binding.secondIvYelp.animate().apply {
