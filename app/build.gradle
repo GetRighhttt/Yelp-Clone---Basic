@@ -62,7 +62,8 @@ dependencies {
 
     /**
      * Below we add in our required dependencies for this project:
-     * #Includes - Coroutines, Glide, Lifecycle Components, Permissions, Dagger-Hilt
+     * #Includes - Retrofit2, Glide, Coroutines, Lifecycle Components, Permissions, Dagger-Hilt,
+     * Room, Paging3
      */
 
     // Retrofit - API
@@ -91,22 +92,16 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
-    /*
-    Room data persistence library for caching.
-     */
+    // Room Library for caching and data persistence
     implementation("androidx.room:room-runtime:2.5.1")
     annotationProcessor ("androidx.room:room-compiler:2.5.1")
     kapt("androidx.room:room-compiler:2.5.1")
     implementation("androidx.room:room-ktx:2.5.1")
     implementation "androidx.room:room-paging:2.5.1"
 
-    /*
-    Paging3 Library for pagination.
-     */
+    // Paging3 Library for pagination.
     implementation "androidx.paging:paging-runtime:3.1.1"
-    // alternatively - without Android dependencies for tests
     testImplementation "androidx.paging:paging-common:3.1.1"
-    // optional - Guava ListenableFuture support
     implementation "androidx.paging:paging-guava:3.1.1"
 }
     /*
