@@ -1,7 +1,10 @@
 package com.example.yelpclone.presentation.viewmodel
 
+import android.provider.Telephony.Carriers.BEARER
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.core.util.Constants
 import com.example.yelpclone.data.model.YelpSearchResult
@@ -29,8 +32,8 @@ class MainViewModel @Inject constructor(
     companion object {
         private const val VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.API_KEY}"
-        private const val DEFAULT_SEARCH_TERM = "Avocado Toast"
-        private const val DEFAULT_LOCATION = "New York"
+        private const val DEFAULT_SEARCH_TERM = "Seafood"
+        private const val DEFAULT_LOCATION = "Tampa"
         private const val DEFAULT_LIMIT = 50
     }
 

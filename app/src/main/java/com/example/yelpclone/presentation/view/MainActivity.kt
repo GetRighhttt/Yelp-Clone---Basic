@@ -102,15 +102,6 @@ class MainActivity : AppCompatActivity() {
                             true
                         }
 
-                        R.id.save -> {
-                            materialDialog(
-                                this@MainActivity,
-                                "Save!".uppercase(),
-                                "You clicked on the Save Icon. Functionality Coming soon!"
-                            ).show()
-                            true
-                        }
-
                         R.id.more -> {
                             materialDialog(
                                 this@MainActivity,
@@ -198,7 +189,7 @@ class MainActivity : AppCompatActivity() {
 
                         is SearchEvent.Loading -> {
                             pbMain.visibility = View.VISIBLE
-                            Log.d(MAIN, "Loading main...}")
+                            Log.d(MAIN, "Loading main...")
                         }
 
                         is SearchEvent.Success -> {

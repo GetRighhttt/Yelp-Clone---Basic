@@ -29,14 +29,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="70dp"
-            android:layout_height="60dp"
-            android:src="@drawable/yelp"
-            android:layout_marginStart="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_restaurant_list"
             android:layout_width="match_parent"
