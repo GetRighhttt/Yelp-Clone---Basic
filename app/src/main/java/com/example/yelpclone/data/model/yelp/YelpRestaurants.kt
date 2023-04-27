@@ -1,9 +1,8 @@
-package com.example.yelpclone.data.model
+package com.example.yelpclone.data.model.yelp
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Parcelize
 data class YelpRestaurants(

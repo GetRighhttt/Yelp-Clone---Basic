@@ -1,10 +1,10 @@
 package com.example.yelpclone.domain
 
 import com.example.yelpclone.data.api.YelpService
-import com.example.yelpclone.data.model.YelpSearchResult
+import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.core.events.Resource
+import com.example.yelpclone.data.model.users.UserList
 import com.example.yelpclone.domain.sot.YelpRepository
-import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,6 +39,20 @@ class RepositoryImpl @Inject constructor (
             }
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Unable to retrieve restaurants.")
+        }
+    }
+
+    override suspend fun getUsers(size: Int): Resource<List<UserList>> {
+        return try {
+           val response = yelpService.getUsers(size)
+            val result = response.body()
+            if ((response.isSuccessful) && (result != null)) {
+                Resource.Success(result)
+            } else {
+                Resource.Error(response.message())
+            }
+        }catch (e: Exception) {
+            Resource.Error(e.message ?: "Unable to retrieve users.")
         }
     }
 }

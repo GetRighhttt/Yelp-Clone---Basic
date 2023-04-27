@@ -28,7 +28,7 @@ object RetrofitInstance {
 
     private val gson: GsonConverterFactory = GsonConverterFactory.create()
     val retrofit: YelpService = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
+        .baseUrl(Constants.RESTAURANTS_BASE_URL)
         .addConverterFactory(gson)
         .client(provideHttpInterceptor())
         .build()

@@ -1,6 +1,7 @@
 package com.example.yelpclone.data.api
 
-import com.example.yelpclone.data.model.YelpSearchResult
+import com.example.yelpclone.data.model.users.UserList
+import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -22,4 +23,8 @@ interface YelpService {
         @Query("offset") offset: Int
     ) : Response<YelpSearchResult>
 
+    @GET("users")
+    suspend fun getUsers(
+        @Query("size") size: Int
+    ): Response<List<UserList>>
 }

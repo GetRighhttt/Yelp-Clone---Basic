@@ -18,4 +18,7 @@
     <string name="save">Save</string>
     <string name="add">Add</string>
     <string name="more">More</string>
+    <string name="gender">Male</string>
+    <string name="employment">Engineer</string>
+    <string name="go_to_users">Go To Users</string>
 </resources>

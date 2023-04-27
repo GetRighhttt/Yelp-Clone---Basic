@@ -1,4 +1,4 @@
-package com.example.yelpclone.data.model
+package com.example.yelpclone.data.model.yelp
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
