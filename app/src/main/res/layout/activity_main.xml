@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/tool_bar_menu"
-                app:navigationIcon="@android:drawable/arrow_down_float"
+                app:navigationIcon="@drawable/baseline_menu_24"
                 app:titleTextColor="@color/black" />
 
         </com.google.android.material.appbar.AppBarLayout>
