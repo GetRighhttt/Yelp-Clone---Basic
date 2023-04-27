@@ -1,5 +1,6 @@
 package com.example.yelpclone.presentation.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -203,18 +204,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun materialDialog(
-        mainActivity: MainActivity,
-        titleText: String,
-        answerText: String
+        context: Context,
+        title: String,
+        message: String
     ) = object : MaterialAlertDialogBuilder(this) {
-        val dialog = MaterialAlertDialogBuilder(mainActivity)
-            .setTitle(titleText)
-            .setMessage(answerText)
+        val dialog = MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
-
     }
 
 
