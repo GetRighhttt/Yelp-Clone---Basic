@@ -25,4 +25,6 @@
     <string name="stefan_yahoo_com">stefan@yahoo.com</string>
     <string name="skill">Skill</string>
     <string name="_33544">33544</string>
+    <string name="title_activity_restaurant_map">RestaurantMapActivity</string>
+    <string name="go_to_maps">Check Location</string>
 </resources>

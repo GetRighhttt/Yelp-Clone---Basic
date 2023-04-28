@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view.main
+package com.example.yelpclone.presentation.view.restaurant
 
 import android.content.Context
 import android.content.Intent
@@ -97,6 +97,7 @@ class RestaurantsActivity : AppCompatActivity() {
                                 response.results.let {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())
                                     yelpAdapter.setOnItemClickListener {
+                                        // details
                                         val detailIntent =
                                             Intent(
                                                 this@RestaurantsActivity,
@@ -163,7 +164,8 @@ class RestaurantsActivity : AppCompatActivity() {
                 val backIntent = Intent(this@RestaurantsActivity, UserActivity::class.java)
                 startActivity(backIntent)
             }
-        })
+        }
+    )
 
     private fun materialDialog(
         context: Context,

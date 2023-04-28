@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.databinding.ActivitySplashScreenBinding
-import com.example.yelpclone.presentation.view.main.RestaurantsActivity
+import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
 
 class ScreenActivity : AppCompatActivity() {
     private var _binding: ActivitySplashScreenBinding? = null

@@ -13,7 +13,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.data.model.yelp.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityYelpDetailsBinding
-import com.example.yelpclone.presentation.view.main.RestaurantsActivity
+import com.example.yelpclone.presentation.view.maps.RestaurantMapActivity
+import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
 
 class YelpDetailsActivity : AppCompatActivity() {
 
@@ -44,7 +45,8 @@ class YelpDetailsActivity : AppCompatActivity() {
                 val intent = Intent(this@YelpDetailsActivity, RestaurantsActivity::class.java)
                 startActivity(intent)
             }
-        })
+        }
+    )
 
     @SuppressLint("SetTextI18n")
     private fun displayMainInfo() {
@@ -52,6 +54,21 @@ class YelpDetailsActivity : AppCompatActivity() {
             intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)
         binding.apply {
             yelpDetails?.let {
+
+                // Navigating to maps activity
+                val mapIntent = Intent(
+                    this@YelpDetailsActivity,
+                    RestaurantMapActivity::class.java
+                )
+
+                val mapBundle = Bundle().apply {
+                    mapIntent.putExtra(RestaurantsActivity.EXTRA_ITEM_ID_MAIN, it)
+                }
+
+                mapsButton.setOnClickListener {
+                    startActivity(mapIntent)
+                }
+
                 // scale and transform image to our needs using Glide.
                 Glide.with(ivImage.context)
                     .load(yelpDetails.imageUrl)
