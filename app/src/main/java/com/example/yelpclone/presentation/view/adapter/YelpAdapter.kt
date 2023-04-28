@@ -71,6 +71,7 @@ class RestaurantsAdapter(
                         RequestOptions().transform(
                             CenterCrop(), RoundedCorners(20)
                         )
+                            .placeholder(R.drawable.baseline_food_bank_24)
                     )
                     .into(ivYelpImage)
 

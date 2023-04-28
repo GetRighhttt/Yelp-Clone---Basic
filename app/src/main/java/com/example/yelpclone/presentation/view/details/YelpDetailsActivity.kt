@@ -69,9 +69,10 @@ class YelpDetailsActivity : AppCompatActivity() {
                     tvReviews.text = "${it.reviewCount} Reviews"
                 }
                 tvName.text = it.name
+                tvDistance.text = it.displayDistance()
                 tvAddress.text = it.location.address1
-                tvCityOrState.text = "${it.location.city}, ${it.location.state}"
-                tvStateOrCountry.text = "${it.location.country}, "
+                tvCityOrState.text = "${it.location.city}, ${it.location.state}, "
+                tvStateOrCountry.text = "${it.location.country} "
                 tvCountryOrZipcode.text = it.location.zipCode
                 userPhoneNumber.text = it.phone
                 tvCategoryOrSkill.text = it.categories[0].title

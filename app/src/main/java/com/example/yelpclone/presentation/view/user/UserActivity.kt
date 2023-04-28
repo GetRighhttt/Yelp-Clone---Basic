@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
@@ -52,7 +53,11 @@ class UserActivity : AppCompatActivity() {
             hasFixedSize()
             userAdapter = UserAdapter(this@UserActivity)
             adapter = userAdapter
-            layoutManager = LinearLayoutManager(this@UserActivity)
+            layoutManager = GridLayoutManager(
+                this@UserActivity,
+                2,
+                GridLayoutManager.VERTICAL,
+                false)
         }.also {
             it.smoothScrollToPosition(0)
         }

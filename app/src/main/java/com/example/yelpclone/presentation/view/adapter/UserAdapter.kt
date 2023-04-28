@@ -46,36 +46,30 @@ class UserAdapter(
 
     inner class ViewHolder(private val binding: UserListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            @SuppressLint("SetTextI18n")
-            fun bind(user: UserList) {
-                binding.apply {
-                    userFullName.text = "${user.firstname} ${user.lastName}"
-                    userEmail.text = user.email
-                    userEmployment.text = user.employment.title
-                    userAddress.text = user.address.streetName
-                    userState.text = "${user.address.state}, "
-                    userCountry.text = "${user.address.country}, "
-                    userZipcode.text = user.address.zipCode
-                    userPhoneNumber.text = user.phoneNumber
-                    userSkill.text = user.employment.skill
+        @SuppressLint("SetTextI18n")
+        fun bind(user: UserList) {
+            binding.apply {
+                userFullName.text = "${user.firstname} ${user.lastName}"
 
-                    // scale and transform image to our needs using Glide.
-                    Glide.with(userImage.context)
-                        .load(user.avatar)
-                        .apply(
-                            RequestOptions().transform(
-                                CenterCrop(), RoundedCorners(20)
-                            )
+                // scale and transform image to our needs using Glide.
+                Glide.with(userImage.context)
+                    .load(user.avatar)
+                    .apply(
+                        RequestOptions().transform(
+                            CenterCrop(), RoundedCorners(20)
                         )
-                        .into(userImage)
+                            .placeholder(R.drawable.baseline_person_24)
+                    )
+                    .into(userImage)
 
-                    root.setOnClickListener{
-                        onItemClickListener?.let {
-                            it(user)
-                        }
+                root.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(user)
                     }
                 }
             }
+        }
+
         val userListItem = binding.userItem
     }
 

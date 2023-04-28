@@ -63,12 +63,14 @@ class UserDetailsActivity : AppCompatActivity() {
                     .into(ivImage)
 
                 tvName.text = "${it.firstname} ${it.lastName}"
-                tvAddress.text = it.address.streetName
-                tvCityOrState.text = "${it.address.state}, "
-                tvStateOrCountry.text = "${it.address.country}, "
-                tvCountryOrZipcode.text = it.address.zipCode
-                userPhoneNumber.text = it.phoneNumber
-                tvCategoryOrSkill.text = it.employment.skill
+                tvEmployment.text = "CAREER: ${it.employment.title}"
+                tvEmail.text = "EMAIL: ${it.email}"
+                tvAddress.text = "ADDRESS: ${it.address.streetName}"
+                tvCityOrState.text = "STATE: ${it.address.state}"
+                tvStateOrCountry.text = "COUNTRY: ${it.address.country}"
+                tvCountryOrZipcode.text = " ZIPCODE: ${it.address.zipCode}"
+                userPhoneNumber.text = "PHONE: ${it.phoneNumber}"
+                tvCategoryOrSkill.text = "SKILL: ${it.employment.skill}"
                 Log.d(USER_DETAIL, "User Details initialized.")
             }
         }
