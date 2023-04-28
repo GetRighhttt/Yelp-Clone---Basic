@@ -40,7 +40,7 @@ class UserViewModel @Inject constructor(
     }
 
     private fun getUsers() = viewModelScope.launch(dispatcherProvider.ioCD) {
-        delay(300)
+        delay(200)
 
         try {
             when (val result = repositoryImpl.getUsers()) {

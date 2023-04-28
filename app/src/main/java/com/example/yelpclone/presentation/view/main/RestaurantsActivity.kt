@@ -17,6 +17,7 @@ import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
 import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
+import com.example.yelpclone.presentation.view.user.UserActivity
 import com.example.yelpclone.presentation.viewmodel.main.RestaurantViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -159,7 +160,7 @@ class RestaurantsActivity : AppCompatActivity() {
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val backIntent = Intent(this@RestaurantsActivity, RestaurantsActivity::class.java)
+                val backIntent = Intent(this@RestaurantsActivity, UserActivity::class.java)
                 startActivity(backIntent)
             }
         })

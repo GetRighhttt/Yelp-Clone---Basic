@@ -32,7 +32,7 @@ class ScreenActivity : AppCompatActivity() {
             Intent(this@ScreenActivity, RestaurantsActivity::class.java)
         )
         finish()
-    }, 1300)
+    }, 800)
 }
 
 override fun onDestroy() {
