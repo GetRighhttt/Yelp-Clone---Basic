@@ -1,2 +1,2 @@
 # Yelp-Clone---Basic
-Creating a Yelp Clone to practice flows once again. 
+Using Yelp api to return a list of restaurants, and a random users API to generate users. Also added in Google maps for the restaurant location.
