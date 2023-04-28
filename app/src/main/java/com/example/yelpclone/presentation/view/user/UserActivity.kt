@@ -134,17 +134,17 @@ class UserActivity : AppCompatActivity() {
                             " Click ok to go to Restaurant list, otherwise click cancel to exit."
                 )
             }.also {
-                topUserAppBar.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.user -> {
-                            materialDialog(
-                                this@UserActivity,
-                                "Navigation!".uppercase(),
-                                "To go back to restaurants, click OK. " +
-                                        "Otherwise, click cancel to exit."
-                            )
-                            true
-                        }
+            topUserAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.main -> {
+                        materialDialog(
+                            this@UserActivity,
+                            "Navigation!".uppercase(),
+                            "To go back to restaurants, click OK. " +
+                                    "Otherwise, click cancel to exit."
+                        )
+                        true
+                    }
 
                         else -> {
                             false
