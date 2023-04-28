@@ -50,7 +50,7 @@ class RestaurantViewModel @Inject constructor(
     private fun getRestaurants(query: String = DEFAULT_SEARCH_TERM) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
-            delay(500)
+            delay(300)
 
             try {
                 when (val apiResult =
