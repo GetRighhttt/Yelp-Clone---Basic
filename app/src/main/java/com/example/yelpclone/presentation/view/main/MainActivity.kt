@@ -16,6 +16,8 @@ import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
+import com.example.yelpclone.presentation.view.details.DetailsActivity
+import com.example.yelpclone.presentation.view.user.UserActivity
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
+        const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,15 +83,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvRestaurantList.apply {
             hasFixedSize()
             yelpAdapter =
-                RestaurantsAdapter(this@MainActivity, object : RestaurantsAdapter.OnClickListener {
-                    override fun onItemClick(position: Int) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Item $position clicked!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                RestaurantsAdapter(this@MainActivity)
             adapter = yelpAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }.also {
@@ -107,27 +102,20 @@ class MainActivity : AppCompatActivity() {
 
                     when (response) {
                         is SearchEvent.Failure -> {
-                            Snackbar.make(
-                                binding.root,
-                                "Error when fetching Data!",
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            createSnackBar("Error when fetching Data!")
                             pbMain.visibility = View.GONE
                             Log.d(MAIN, "Failed to update UI with data: ${response.errorMessage}")
                         }
 
                         is SearchEvent.Loading -> {
+                            createSnackBar("Loading...")
                             pbMain.visibility = View.VISIBLE
                             Log.d(MAIN, "Loading main...")
                         }
 
                         is SearchEvent.Success -> {
                             if (response.results!!.restaurants.isEmpty()) {
-                                Snackbar.make(
-                                    binding.root,
-                                    "Results are Empty!",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                createSnackBar("Results are Empty!")
                                 pbMain.visibility = View.GONE
                                 noResults.visibility = View.VISIBLE
                                 Log.d(
@@ -138,12 +126,16 @@ class MainActivity : AppCompatActivity() {
                             } else {
                                 response.results.let {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())
+                                        yelpAdapter.setOnItemClickListener {
+                                        val detailIntent =
+                                            Intent(this@MainActivity, DetailsActivity::class.java)
+                                        val bundle = Bundle().apply {
+                                            detailIntent.putExtra(MainActivity.EXTRA_ITEM_ID, it)
+                                        }
+                                        startActivity(detailIntent)
+                                    }
                                 }
-                                Snackbar.make(
-                                    binding.root,
-                                    "Successfully fetched Data!",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                createSnackBar("Successfully fetched Data!")
                                 pbMain.visibility = View.GONE
                                 Log.d(
                                     MAIN,
@@ -177,6 +169,9 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun createSnackBar(message: String) = Snackbar.make(
+        binding.root, message, Snackbar.LENGTH_SHORT
+    ).show()
 
     override fun onDestroy() {
         super.onDestroy()

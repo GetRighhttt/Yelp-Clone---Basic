@@ -8,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class UserAddress(
     val city: String,
     @SerializedName("street_name") val streetName: String,
-    @SerializedName("street_number") val streetNumber: String,
     @SerializedName("zip_code") val zipCode: String,
     val state: String,
     val country: String

@@ -40,7 +40,7 @@ class UserViewModel @Inject constructor(
         getUsers()
     }
 
-    private fun getUsers() = viewModelScope.launch(dispatcherProvider.ioCD) {
+    fun getUsers() = viewModelScope.launch(dispatcherProvider.ioCD) {
         delay(1000)
 
         try{

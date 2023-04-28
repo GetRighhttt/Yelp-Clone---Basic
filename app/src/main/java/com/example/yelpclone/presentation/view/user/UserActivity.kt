@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
@@ -15,6 +15,7 @@ import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
+import com.example.yelpclone.presentation.view.details.DetailsActivity
 import com.example.yelpclone.presentation.view.main.MainActivity
 import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,6 +33,7 @@ class UserActivity : AppCompatActivity() {
 
     companion object {
         private const val USER = "USER_ACTIVITY"
+        const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,21 +44,13 @@ class UserActivity : AppCompatActivity() {
         initRecyclerView()
         determineUserState()
         menuItemSelection()
+        backPressed()
     }
 
     private fun initRecyclerView() {
         binding.rvUserList.apply {
             hasFixedSize()
-            userAdapter =
-                UserAdapter(this@UserActivity, object : UserAdapter.OnClickListener {
-                    override fun onItemClick(position: Int) {
-                        Toast.makeText(
-                            this@UserActivity,
-                            "Item $position clicked!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+            userAdapter = UserAdapter(this@UserActivity)
             adapter = userAdapter
             layoutManager = LinearLayoutManager(this@UserActivity)
         }.also {
@@ -75,24 +69,20 @@ class UserActivity : AppCompatActivity() {
 
                     when (response) {
                         is SearchEvent.Failure -> {
-                            Snackbar.make(
-                                binding.root, "Error when fetching Data!", Snackbar.LENGTH_LONG
-                            ).show()
+                           createSnackBar("Error when fetching Data!")
                             pbUser.visibility = View.GONE
                             Log.d(USER, "Failed to update UI with data: ${response.errorMessage}")
                         }
 
                         is SearchEvent.Loading -> {
+                            createSnackBar("Loading...")
                             pbUser.visibility = View.VISIBLE
                             Log.d(USER, "Loading user activity...")
                         }
 
                         is SearchEvent.Success -> {
                             if (response.results!!.isEmpty()) {
-                                Snackbar.make(
-                                    binding.root, "Results are Empty!",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                createSnackBar("Results are Empty!")
                                 pbUser.visibility = View.GONE
                                 noResults.visibility = View.VISIBLE
                                 Log.d(
@@ -102,12 +92,16 @@ class UserActivity : AppCompatActivity() {
                             } else {
                                 response.results.let {
                                     userAdapter.differ.submitList(it.toList())
+                                    userAdapter.setOnItemClickListener {
+                                        val detailIntent =
+                                            Intent(this@UserActivity, DetailsActivity::class.java)
+                                        val bundle = Bundle().apply {
+                                            detailIntent.putExtra(EXTRA_ITEM_ID, it)
+                                        }
+                                        startActivity(detailIntent)
+                                    }
                                 }
-                                Snackbar.make(
-                                    binding.root,
-                                    "Successfully fetched Data!",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                createSnackBar("Successfully fetched Data!")
                                 pbUser.visibility = View.GONE
                                 Log.d(
                                     USER, "Successfully updated UI with data: ${response.results}"
@@ -134,17 +128,17 @@ class UserActivity : AppCompatActivity() {
                             " Click ok to go to Restaurant list, otherwise click cancel to exit."
                 )
             }.also {
-            topUserAppBar.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.main -> {
-                        materialDialog(
-                            this@UserActivity,
-                            "Navigation!".uppercase(),
-                            "To go back to restaurants, click OK. " +
-                                    "Otherwise, click cancel to exit."
-                        )
-                        true
-                    }
+                topUserAppBar.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.main -> {
+                            materialDialog(
+                                this@UserActivity,
+                                "Navigation!".uppercase(),
+                                "To go back to restaurants, click OK. " +
+                                        "Otherwise, click cancel to exit."
+                            )
+                            true
+                        }
 
                         else -> {
                             false
@@ -154,6 +148,14 @@ class UserActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun backPressed() =  onBackPressedDispatcher.addCallback(
+        this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val backIntent = Intent(this@UserActivity, MainActivity::class.java)
+                startActivity(backIntent)
+            }
+        })
 
     private fun materialDialog(
         context: Context,
@@ -170,6 +172,10 @@ class UserActivity : AppCompatActivity() {
             }
             .show()
     }
+
+    private fun createSnackBar(message: String) = Snackbar.make(
+        binding.root, message, Snackbar.LENGTH_SHORT
+    ).show()
 
     override fun onDestroy() {
         super.onDestroy()

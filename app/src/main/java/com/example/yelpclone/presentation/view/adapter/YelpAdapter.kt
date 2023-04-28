@@ -13,17 +13,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
+import com.example.yelpclone.data.model.users.UserList
 import com.example.yelpclone.data.model.yelp.YelpRestaurants
 import com.example.yelpclone.databinding.YelpListItemBinding
 
 class RestaurantsAdapter(
-    private val context: Context,
-    private val onClickListener: OnClickListener
+    private val context: Context
 ) : RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>() {
-
-    interface OnClickListener {
-        fun onItemClick(position: Int)
-    }
 
     companion object {
 
@@ -78,11 +74,29 @@ class RestaurantsAdapter(
                         )
                     )
                     .into(ivYelpImage)
+
+                root.setOnClickListener{
+                    onItemClickListener?.let {
+                        it(restaurant)
+                    }
+                }
             }
         }
 
         // Needed for animation
         val yelpListItem = binding.yelpItem
+    }
+
+    /*
+    Item click listener variable.
+    */
+    private var onItemClickListener: ((YelpRestaurants) -> Unit)? = null
+
+    /*
+    Setter method for the onItemClickListener.
+    */
+    fun setOnItemClickListener(listener: ((YelpRestaurants) -> Unit)?) {
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -94,9 +108,6 @@ class RestaurantsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val restaurant = differ.currentList[position]
         holder.bind(restaurant)
-        holder.yelpListItem.setOnClickListener {
-            onClickListener.onItemClick(position)
-        }
         holder.yelpListItem.startAnimation( // animation for recycler view
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.favorite_anim)
         )

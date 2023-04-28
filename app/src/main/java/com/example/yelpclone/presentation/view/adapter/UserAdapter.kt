@@ -18,13 +18,8 @@ import com.example.yelpclone.databinding.UserListItemBinding
 
 
 class UserAdapter(
-    private val context: Context,
-    private val onClickListener: OnClickListener
+    private val context: Context
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
-
-    interface OnClickListener {
-        fun onItemClick(position: Int)
-    }
 
     companion object {
 
@@ -57,7 +52,7 @@ class UserAdapter(
                     userFullName.text = "${user.firstname} ${user.lastName}"
                     userEmail.text = user.email
                     userEmployment.text = user.employment.title
-                    userAddress.text = "${user.address.streetNumber} ${user.address.streetName}"
+                    userAddress.text = user.address.streetName
                     userState.text = "${user.address.state}, "
                     userCountry.text = "${user.address.country}, "
                     userZipcode.text = user.address.zipCode
@@ -73,9 +68,27 @@ class UserAdapter(
                             )
                         )
                         .into(userImage)
+
+                    root.setOnClickListener{
+                        onItemClickListener?.let {
+                            it(user)
+                        }
+                    }
                 }
             }
         val userListItem = binding.userItem
+    }
+
+    /*
+    Item click listener variable.
+    */
+    private var onItemClickListener: ((UserList) -> Unit)? = null
+
+    /*
+    Setter method for the onItemClickListener.
+    */
+    fun setOnItemClickListener(listener: ((UserList) -> Unit)?) {
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -87,9 +100,6 @@ class UserAdapter(
     override fun onBindViewHolder(holder: UserAdapter.ViewHolder, position: Int) {
         val user = differ.currentList[position]
         holder.bind(user)
-        holder.userListItem.setOnClickListener {
-            onClickListener.onItemClick(position)
-        }
         holder.userListItem.startAnimation(
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.in_from_bottom)
         )
