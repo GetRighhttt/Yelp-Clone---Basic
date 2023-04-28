@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.databinding.ActivitySplashScreenBinding
-import com.example.yelpclone.presentation.view.main.MainActivity
+import com.example.yelpclone.presentation.view.main.RestaurantsActivity
 
 class ScreenActivity : AppCompatActivity() {
     private var _binding: ActivitySplashScreenBinding? = null
@@ -29,7 +29,7 @@ class ScreenActivity : AppCompatActivity() {
     Handler(Looper.getMainLooper()).postDelayed(
     {
         startActivity(
-            Intent(this@ScreenActivity, MainActivity::class.java)
+            Intent(this@ScreenActivity, RestaurantsActivity::class.java)
         )
         finish()
     }, 1300)

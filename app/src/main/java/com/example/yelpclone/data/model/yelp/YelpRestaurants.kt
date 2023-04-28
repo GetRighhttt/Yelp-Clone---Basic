@@ -7,7 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class YelpRestaurants(
     val rating: Double,
-    val price: String,
     val phone: String,
     val id: String,
     val alias: String,

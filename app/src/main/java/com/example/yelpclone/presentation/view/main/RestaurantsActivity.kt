@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
@@ -14,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
-import com.example.yelpclone.presentation.view.details.DetailsActivity
-import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
+import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class RestaurantsActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
-        const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
+        const val EXTRA_ITEM_ID_MAIN = "EXTRA_ITEM_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             topAppBar.setNavigationOnClickListener {
                 materialDialog(
-                    this@MainActivity,
+                    this@RestaurantsActivity,
                     "Menu!".uppercase(),
                     "This button would normally display a menu of other options!" +
                             " Click ok to go to Yelp user list, otherwise click cancel to exit."
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                     when (it.itemId) {
                         R.id.user -> {
                             materialDialog(
-                                this@MainActivity,
+                                this@RestaurantsActivity,
                                 "Navigation!".uppercase(),
                                 "To see a list of Yelp users, click OK. " +
                                         "Otherwise, click cancel to exit."
@@ -83,9 +81,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvRestaurantList.apply {
             hasFixedSize()
             yelpAdapter =
-                RestaurantsAdapter(this@MainActivity)
+                RestaurantsAdapter(this@RestaurantsActivity)
             adapter = yelpAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(this@RestaurantsActivity)
         }.also {
             it.smoothScrollToPosition(0)
         }
@@ -126,11 +124,11 @@ class MainActivity : AppCompatActivity() {
                             } else {
                                 response.results.let {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())
-                                        yelpAdapter.setOnItemClickListener {
+                                    yelpAdapter.setOnItemClickListener {
                                         val detailIntent =
-                                            Intent(this@MainActivity, DetailsActivity::class.java)
+                                            Intent(this@RestaurantsActivity, YelpDetailsActivity::class.java)
                                         val bundle = Bundle().apply {
-                                            detailIntent.putExtra(MainActivity.EXTRA_ITEM_ID, it)
+                                            detailIntent.putExtra(EXTRA_ITEM_ID_MAIN, it)
                                         }
                                         startActivity(detailIntent)
                                     }
@@ -163,7 +161,7 @@ class MainActivity : AppCompatActivity() {
             .setMessage(message)
             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this@MainActivity, SecondStartActivity::class.java)
+                val intent = Intent(this@RestaurantsActivity, SecondStartActivity::class.java)
                 startActivity(intent)
             }
             .show()

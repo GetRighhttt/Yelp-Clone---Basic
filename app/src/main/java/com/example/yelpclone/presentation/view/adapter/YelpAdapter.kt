@@ -62,7 +62,6 @@ class RestaurantsAdapter(
                 tvZipcode.text = " ${restaurant.location.zipCode}"
                 tvCategories.text = restaurant.categories[0].title
                 tvDistance.text = restaurant.displayDistance() // converts to nice format
-                tvPrice.text = restaurant.price
                 tvReviews.text = "${restaurant.reviewCount} Reviews"
 
                 // scale and transform image to our needs using Glide.

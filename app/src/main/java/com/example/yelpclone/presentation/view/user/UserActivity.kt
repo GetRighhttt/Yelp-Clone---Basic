@@ -15,8 +15,8 @@ import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
-import com.example.yelpclone.presentation.view.details.DetailsActivity
-import com.example.yelpclone.presentation.view.main.MainActivity
+import com.example.yelpclone.presentation.view.details.UserDetailsActivity
+import com.example.yelpclone.presentation.view.main.RestaurantsActivity
 import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -94,7 +94,7 @@ class UserActivity : AppCompatActivity() {
                                     userAdapter.differ.submitList(it.toList())
                                     userAdapter.setOnItemClickListener {
                                         val detailIntent =
-                                            Intent(this@UserActivity, DetailsActivity::class.java)
+                                            Intent(this@UserActivity, UserDetailsActivity::class.java)
                                         val bundle = Bundle().apply {
                                             detailIntent.putExtra(EXTRA_ITEM_ID, it)
                                         }
@@ -152,7 +152,7 @@ class UserActivity : AppCompatActivity() {
     private fun backPressed() =  onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val backIntent = Intent(this@UserActivity, MainActivity::class.java)
+                val backIntent = Intent(this@UserActivity, RestaurantsActivity::class.java)
                 startActivity(backIntent)
             }
         })
@@ -167,7 +167,7 @@ class UserActivity : AppCompatActivity() {
             .setMessage(message)
             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this@UserActivity, MainActivity::class.java)
+                val intent = Intent(this@UserActivity, RestaurantsActivity::class.java)
                 startActivity(intent)
             }
             .show()
