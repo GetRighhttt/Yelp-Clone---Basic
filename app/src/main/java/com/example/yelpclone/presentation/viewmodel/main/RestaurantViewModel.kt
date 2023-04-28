@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class RestaurantViewModel @Inject constructor(
     private val repositoryImpl: RepositoryImpl,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
 
     companion object {
-        private const val MAIN_VIEW_MODEL = "MAIN_VIEW_MODEL"
+        private const val RESTAURANT_VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.RESTAURANT_API_KEY}"
         private const val DEFAULT_SEARCH_TERM = "Seafood"
         private const val DEFAULT_LOCATION = "Tampa"
@@ -41,13 +41,16 @@ class MainViewModel @Inject constructor(
 
         // get the restaurants as soon as the view model is initialized
         getRestaurants()
-        Log.d(MAIN_VIEW_MODEL, "View Model is initialized. getRestaurants() method has been called. ")
+        Log.d(
+            RESTAURANT_VIEW_MODEL,
+            "View Model is initialized. getRestaurants() method has been called. "
+        )
     }
 
     private fun getRestaurants(query: String = DEFAULT_SEARCH_TERM) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
-            delay(1000)
+            delay(500)
 
             try {
                 when (val apiResult =
@@ -61,23 +64,27 @@ class MainViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _searchState.value = SearchEvent.Loading()
-                        Log.d(MAIN_VIEW_MODEL, "Loading restaurants.")
+                        Log.d(RESTAURANT_VIEW_MODEL, "Loading restaurants.")
                     }
 
                     is Resource.Error -> {
                         _searchState.value = SearchEvent.Failure(apiResult.message.toString())
-                        Log.d(MAIN_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
+                        Log.d(RESTAURANT_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
                     }
 
                     is Resource.Success -> {
                         _searchState.value = SearchEvent.Success(apiResult.data)
-                        Log.d(MAIN_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
+                        Log.d(RESTAURANT_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e(MAIN_VIEW_MODEL, "Error getting restaurants!", e)
+                Log.e(RESTAURANT_VIEW_MODEL, "Error getting restaurants!", e)
             }
         }
+    }
+
+    override fun onCleared() {
+        Log.d(RESTAURANT_VIEW_MODEL, "Cleared.")
     }
 }

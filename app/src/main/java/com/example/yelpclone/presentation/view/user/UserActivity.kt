@@ -69,7 +69,7 @@ class UserActivity : AppCompatActivity() {
 
                     when (response) {
                         is SearchEvent.Failure -> {
-                           createSnackBar("Error when fetching Data!")
+                            createSnackBar("Error when fetching Data!")
                             pbUser.visibility = View.GONE
                             Log.d(USER, "Failed to update UI with data: ${response.errorMessage}")
                         }
@@ -94,7 +94,10 @@ class UserActivity : AppCompatActivity() {
                                     userAdapter.differ.submitList(it.toList())
                                     userAdapter.setOnItemClickListener {
                                         val detailIntent =
-                                            Intent(this@UserActivity, UserDetailsActivity::class.java)
+                                            Intent(
+                                                this@UserActivity,
+                                                UserDetailsActivity::class.java
+                                            )
                                         val bundle = Bundle().apply {
                                             detailIntent.putExtra(EXTRA_ITEM_ID, it)
                                         }
@@ -123,7 +126,7 @@ class UserActivity : AppCompatActivity() {
             topUserAppBar.setNavigationOnClickListener {
                 materialDialog(
                     this@UserActivity,
-                    "Menu!".uppercase(),
+                    "Menu".uppercase(),
                     "This button would normally display a menu of other options!" +
                             " Click ok to go to Restaurant list, otherwise click cancel to exit."
                 )
@@ -133,7 +136,7 @@ class UserActivity : AppCompatActivity() {
                         R.id.main -> {
                             materialDialog(
                                 this@UserActivity,
-                                "Navigation!".uppercase(),
+                                "Navigation".uppercase(),
                                 "To go back to restaurants, click OK. " +
                                         "Otherwise, click cancel to exit."
                             )
@@ -149,7 +152,7 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    private fun backPressed() =  onBackPressedDispatcher.addCallback(
+    private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val backIntent = Intent(this@UserActivity, RestaurantsActivity::class.java)

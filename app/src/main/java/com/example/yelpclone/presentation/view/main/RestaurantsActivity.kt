@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
@@ -16,7 +17,7 @@ import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
 import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
-import com.example.yelpclone.presentation.viewmodel.main.MainViewModel
+import com.example.yelpclone.presentation.viewmodel.main.RestaurantViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,7 @@ class RestaurantsActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: RestaurantViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
 
 
@@ -44,37 +45,7 @@ class RestaurantsActivity : AppCompatActivity() {
         initRecyclerView()
         determineSearchState()
         menuItemSelection()
-    }
-
-    private fun menuItemSelection() {
-        binding.apply {
-            topAppBar.setNavigationOnClickListener {
-                materialDialog(
-                    this@RestaurantsActivity,
-                    "Menu!".uppercase(),
-                    "This button would normally display a menu of other options!" +
-                            " Click ok to go to Yelp user list, otherwise click cancel to exit."
-                )
-            }.also {
-                topAppBar.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.user -> {
-                            materialDialog(
-                                this@RestaurantsActivity,
-                                "Navigation!".uppercase(),
-                                "To see a list of Yelp users, click OK. " +
-                                        "Otherwise, click cancel to exit."
-                            )
-                            true
-                        }
-
-                        else -> {
-                            false
-                        }
-                    }
-                }
-            }
-        }
+        backPressed()
     }
 
     private fun initRecyclerView() {
@@ -126,7 +97,10 @@ class RestaurantsActivity : AppCompatActivity() {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())
                                     yelpAdapter.setOnItemClickListener {
                                         val detailIntent =
-                                            Intent(this@RestaurantsActivity, YelpDetailsActivity::class.java)
+                                            Intent(
+                                                this@RestaurantsActivity,
+                                                YelpDetailsActivity::class.java
+                                            )
                                         val bundle = Bundle().apply {
                                             detailIntent.putExtra(EXTRA_ITEM_ID_MAIN, it)
                                         }
@@ -150,6 +124,45 @@ class RestaurantsActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun menuItemSelection() {
+        binding.apply {
+            topAppBar.setNavigationOnClickListener {
+                materialDialog(
+                    this@RestaurantsActivity,
+                    "Menu".uppercase(),
+                    "This button would normally display a menu of other options!" +
+                            " Click ok to go to Yelp user list, otherwise click cancel to exit."
+                )
+            }.also {
+                topAppBar.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.user -> {
+                            materialDialog(
+                                this@RestaurantsActivity,
+                                "Navigation".uppercase(),
+                                "To see a list of Yelp users, click OK. " +
+                                        "Otherwise, click cancel to exit."
+                            )
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun backPressed() = onBackPressedDispatcher.addCallback(
+        this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val backIntent = Intent(this@RestaurantsActivity, RestaurantsActivity::class.java)
+                startActivity(backIntent)
+            }
+        })
 
     private fun materialDialog(
         context: Context,
