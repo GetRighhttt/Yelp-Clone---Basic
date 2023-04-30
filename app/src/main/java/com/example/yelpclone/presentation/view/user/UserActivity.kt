@@ -56,7 +56,8 @@ class UserActivity : AppCompatActivity() {
                 this@UserActivity,
                 2,
                 GridLayoutManager.VERTICAL,
-                false)
+                false
+            )
         }.also {
             it.smoothScrollToPosition(0)
         }
@@ -127,32 +128,24 @@ class UserActivity : AppCompatActivity() {
 
     private fun menuItemSelection() {
         binding.apply {
-            topUserAppBar.setNavigationOnClickListener {
-                materialDialog(
-                    this@UserActivity,
-                    "Menu".uppercase(),
-                    "This button would normally display a menu of other options!" +
-                            " Click ok to go to Restaurant list, otherwise click cancel to exit."
-                )
-            }.also {
-                topUserAppBar.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.main -> {
-                            materialDialog(
-                                this@UserActivity,
-                                "Navigation".uppercase(),
-                                "To go back to restaurants, click OK. " +
-                                        "Otherwise, click cancel to exit."
-                            )
-                            true
-                        }
+            topUserAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.main -> {
+                        materialDialog(
+                            this@UserActivity,
+                            "Navigation".uppercase(),
+                            "To go back to restaurants, click OK. " +
+                                    "Otherwise, click cancel to exit."
+                        )
+                        true
+                    }
 
-                        else -> {
-                            false
-                        }
+                    else -> {
+                        false
                     }
                 }
             }
+
         }
     }
 

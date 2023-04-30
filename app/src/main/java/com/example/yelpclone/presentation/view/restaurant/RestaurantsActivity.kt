@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -129,34 +130,26 @@ class RestaurantsActivity : AppCompatActivity() {
 
     private fun menuItemSelection() {
         binding.apply {
-            topAppBar.setNavigationOnClickListener {
-                materialDialog(
-                    this@RestaurantsActivity,
-                    "Menu".uppercase(),
-                    "This button would normally display a menu of other options!" +
-                            " Click ok to go to Yelp user list, otherwise click cancel to exit."
-                )
-            }.also {
-                topAppBar.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.user -> {
-                            materialDialog(
-                                this@RestaurantsActivity,
-                                "Navigation".uppercase(),
-                                "To see a list of Yelp users, click OK. " +
-                                        "Otherwise, click cancel to exit."
-                            )
-                            true
-                        }
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.user -> {
+                        materialDialog(
+                            this@RestaurantsActivity,
+                            "Navigation".uppercase(),
+                            "To see a list of Yelp users, click OK. " +
+                                    "Otherwise, click cancel to exit."
+                        )
+                        true
+                    }
 
-                        else -> {
-                            false
-                        }
+                    else -> {
+                        false
                     }
                 }
             }
         }
     }
+
 
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
