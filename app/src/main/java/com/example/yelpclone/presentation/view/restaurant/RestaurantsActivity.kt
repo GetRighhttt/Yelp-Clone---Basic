@@ -69,7 +69,6 @@ class RestaurantsActivity : AppCompatActivity() {
                 consumption.
                 */
                 viewModel.searchState.flowWithLifecycle(lifecycle).collect { response ->
-
                     when (response) {
                         is SearchEvent.Failure -> {
                             createSnackBar("Error when fetching Data!")
@@ -92,7 +91,6 @@ class RestaurantsActivity : AppCompatActivity() {
                                     MAIN,
                                     "Failed to update UI with data: ${response.errorMessage}"
                                 )
-
                             } else {
                                 response.results.let {
                                     yelpAdapter.differ.submitList(it.restaurants.toList())

@@ -60,13 +60,14 @@ class UserDetailsActivity : AppCompatActivity() {
         binding.apply {
             userDetails?.let {
 
-                val mapIntent = Intent(this@UserDetailsActivity,
-                    UserMapActivity::class.java)
+                val mapIntent = Intent(
+                    this@UserDetailsActivity,
+                    UserMapActivity::class.java
+                )
 
                 val mapBundle = Bundle().apply {
                     mapIntent.putExtra(EXTRA_ITEM_ID, it)
                 }
-
                 mapsButton.setOnClickListener {
                     startActivity(mapIntent)
                     finish()
