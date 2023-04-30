@@ -11,8 +11,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.data.model.users.UserList
+import com.example.yelpclone.data.model.yelp.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityDetailsBinding
+import com.example.yelpclone.presentation.view.maps.UserMapActivity
+import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
 import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.view.user.UserActivity.Companion.EXTRA_ITEM_ID
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +28,7 @@ class UserDetailsActivity : AppCompatActivity() {
 
     companion object {
         const val USER_DETAIL = "DETAIL_ACTIVITY"
+        const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
     }
 
     init {
@@ -52,6 +58,18 @@ class UserDetailsActivity : AppCompatActivity() {
         val userDetails = intent.getParcelableExtra<UserList>(UserActivity.EXTRA_ITEM_ID)
         binding.apply {
             userDetails?.let {
+
+                val mapIntent = Intent(this@UserDetailsActivity,
+                    UserMapActivity::class.java)
+
+                val mapBundle = Bundle().apply {
+                    mapIntent.putExtra(EXTRA_ITEM_ID, it)
+                }
+
+                mapsButton.setOnClickListener {
+                    startActivity(mapIntent)
+                }
+
                 // scale and transform image to our needs using Glide.
                 Glide.with(ivImage.context)
                     .load(userDetails.avatar)
