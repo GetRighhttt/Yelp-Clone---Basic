@@ -52,7 +52,8 @@ class UserDetailsActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        })
+        }
+    )
 
     @SuppressLint("SetTextI18n")
     private fun displayUserInfo() {

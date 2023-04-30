@@ -157,7 +157,8 @@ class UserActivity : AppCompatActivity() {
                 startActivity(backIntent)
                 finish()
             }
-        })
+        }
+    )
 
     private fun materialDialog(
         context: Context,

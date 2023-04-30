@@ -32,7 +32,8 @@ class SecondStartActivity : AppCompatActivity() {
                         Intent(this@SecondStartActivity, UserActivity::class.java)
                     )
                     finish()
-                }, 800)
+                }, 800
+            )
         }
     }
 
