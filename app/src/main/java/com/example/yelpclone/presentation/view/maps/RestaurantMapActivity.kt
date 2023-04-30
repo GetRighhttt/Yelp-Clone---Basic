@@ -65,6 +65,7 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     RestaurantsActivity::class.java
                 )
                 startActivity(intent)
+                finish()
             }
         }
     )

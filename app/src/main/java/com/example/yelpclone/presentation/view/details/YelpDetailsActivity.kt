@@ -34,7 +34,6 @@ class YelpDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityYelpDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         displayMainInfo()
         backPressed()
     }
@@ -44,6 +43,7 @@ class YelpDetailsActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@YelpDetailsActivity, RestaurantsActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     )
@@ -95,7 +95,6 @@ class YelpDetailsActivity : AppCompatActivity() {
                 tvCategoryOrSkill.text = it.categories[0].title
                 Log.d(YELP_DETAILS, "Yelp Restaurants initialized.")
             }
-
         }
     }
 

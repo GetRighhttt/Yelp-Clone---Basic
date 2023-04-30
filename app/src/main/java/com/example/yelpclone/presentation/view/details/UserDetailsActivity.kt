@@ -50,6 +50,7 @@ class UserDetailsActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@UserDetailsActivity, UserActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         })
 
@@ -68,6 +69,7 @@ class UserDetailsActivity : AppCompatActivity() {
 
                 mapsButton.setOnClickListener {
                     startActivity(mapIntent)
+                    finish()
                 }
 
                 // scale and transform image to our needs using Glide.

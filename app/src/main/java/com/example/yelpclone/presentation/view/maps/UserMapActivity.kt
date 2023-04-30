@@ -69,6 +69,7 @@ class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     UserActivity::class.java
                 )
                 startActivity(intent)
+                finish()
             }
         }
     )

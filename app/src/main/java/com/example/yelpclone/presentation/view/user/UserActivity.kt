@@ -107,6 +107,7 @@ class UserActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID, it)
                                         }
                                         startActivity(detailIntent)
+                                        finish()
                                     }
                                 }
                                 createSnackBar("Successfully fetched Data!")
@@ -154,6 +155,7 @@ class UserActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 val backIntent = Intent(this@UserActivity, RestaurantsActivity::class.java)
                 startActivity(backIntent)
+                finish()
             }
         })
 
@@ -169,6 +171,7 @@ class UserActivity : AppCompatActivity() {
             .setPositiveButton("OK") { _, _ ->
                 val intent = Intent(this@UserActivity, RestaurantsActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             .show()
     }

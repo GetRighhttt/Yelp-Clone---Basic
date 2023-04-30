@@ -107,6 +107,7 @@ class RestaurantsActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID_MAIN, it)
                                         }
                                         startActivity(detailIntent)
+                                        finish()
                                     }
                                 }
                                 createSnackBar("Successfully fetched Data!")
@@ -171,6 +172,7 @@ class RestaurantsActivity : AppCompatActivity() {
             .setPositiveButton("OK") { _, _ ->
                 val intent = Intent(this@RestaurantsActivity, SecondStartActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             .show()
     }
