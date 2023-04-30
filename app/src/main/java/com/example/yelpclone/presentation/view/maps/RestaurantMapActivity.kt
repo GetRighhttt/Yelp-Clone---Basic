@@ -19,10 +19,6 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityRestaurantMapBinding
-
-    /*
-    Variables we will use to set the information received from out api on the map.
-     */
     private var coordinates: LatLng? = null
     private var title: String? = null
 
@@ -40,15 +36,6 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
         setYelpDetails()
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
