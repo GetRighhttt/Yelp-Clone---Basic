@@ -23,8 +23,6 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
     /*
     Variables we will use to set the information received from out api on the map.
      */
-    private var lat: Double = 0.0
-    private var lng: Double = 0.0
     private var coordinates: LatLng? = null
     private var title: String? = null
 
@@ -39,17 +37,7 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val yelpDetails =
-            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)
-
-        binding.apply {
-            yelpDetails?.let {
-                lat = it.coordinates.latitude
-                lng = it.coordinates.longitude
-                coordinates = LatLng(it.coordinates.latitude, it.coordinates.longitude)
-                title = it.name
-            }
-        }
+        setYelpDetails()
     }
 
     /**
@@ -64,11 +52,22 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        mMap.addMarker(MarkerOptions().position(coordinates!!).title(title!!))
+        mMap.addMarker(MarkerOptions().position(coordinates!!).title(title!!).draggable(true))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates!!))
 
         // swipe mechanism
         backPressed()
+    }
+
+    private fun setYelpDetails() {
+        val yelpLat =
+            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.latitude
+        val yelpLon =
+            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.longitude
+        val yelpTitle =
+            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.name
+        coordinates = LatLng(yelpLat, yelpLon)
+        title = yelpTitle
     }
 
     private fun backPressed() = onBackPressedDispatcher.addCallback(
@@ -76,7 +75,8 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun handleOnBackPressed() {
                 val intent = Intent(
                     this@RestaurantMapActivity,
-                    RestaurantsActivity::class.java)
+                    RestaurantsActivity::class.java
+                )
                 startActivity(intent)
             }
         }
