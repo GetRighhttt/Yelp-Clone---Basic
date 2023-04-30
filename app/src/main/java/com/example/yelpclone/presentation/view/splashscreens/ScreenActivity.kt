@@ -26,17 +26,18 @@ class ScreenActivity : AppCompatActivity() {
         }
 
         // delays before moving to other activity
-    Handler(Looper.getMainLooper()).postDelayed(
-    {
-        startActivity(
-            Intent(this@ScreenActivity, RestaurantsActivity::class.java)
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                startActivity(
+                    Intent(this@ScreenActivity, RestaurantsActivity::class.java)
+                )
+                finish()
+            }, 800
         )
-        finish()
-    }, 800)
-}
+    }
 
-override fun onDestroy() {
-    super.onDestroy()
-    _binding = null
-}
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

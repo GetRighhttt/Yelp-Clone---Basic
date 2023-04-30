@@ -33,7 +33,6 @@ class RestaurantsActivity : AppCompatActivity() {
     private val viewModel: RestaurantViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
 
-
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
         const val EXTRA_ITEM_ID_MAIN = "EXTRA_ITEM_ID"
