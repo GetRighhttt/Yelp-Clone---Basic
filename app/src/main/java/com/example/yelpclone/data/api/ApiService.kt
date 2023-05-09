@@ -9,11 +9,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    /*
-    We are going to search for Yelp restaurants. In the API documentation, it specifies that we
-    have to search based on one query parameters -> location. However, we also are going to
-    search based on the term - "food or "restaurant", etc.
-     */
     @GET("businesses/search")
     suspend fun searchRestaurants(
         @Header("Authorization") authHeader: String,

@@ -148,7 +148,6 @@ class RestaurantsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

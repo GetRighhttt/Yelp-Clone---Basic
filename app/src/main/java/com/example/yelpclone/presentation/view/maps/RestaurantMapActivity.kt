@@ -44,6 +44,7 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // swipe mechanism
         backPressed()
+
     }
 
     private fun setYelpDetails() {

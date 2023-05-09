@@ -32,7 +32,7 @@ object RetrofitInstance {
         .addConverterFactory(gson)
         .client(provideHttpInterceptor())
         .build()
-       .create(ApiService::class.java)
+        .create(ApiService::class.java)
 }
 
 object UserRetrofitInstance {
