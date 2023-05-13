@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.example.yelpclone.R
 import com.example.yelpclone.databinding.ActivitySecondStartBinding
 import com.example.yelpclone.presentation.view.user.UserActivity
 

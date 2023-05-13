@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.yelpclone.R
 import com.example.yelpclone.data.model.yelp.YelpRestaurants
 import com.example.yelpclone.databinding.ActivityYelpDetailsBinding
 import com.example.yelpclone.presentation.view.maps.RestaurantMapActivity
@@ -67,6 +68,7 @@ class YelpDetailsActivity : AppCompatActivity() {
 
                 mapsButton.setOnClickListener {
                     startActivity(mapIntent)
+                    overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right)
                 }
 
                 // scale and transform image to our needs using Glide.

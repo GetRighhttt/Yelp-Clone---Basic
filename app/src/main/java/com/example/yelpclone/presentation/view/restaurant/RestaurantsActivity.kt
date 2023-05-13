@@ -104,6 +104,7 @@ class RestaurantsActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID_MAIN, it)
                                         }
                                         startActivity(detailIntent)
+                                        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right)
                                         finish()
                                     }
                                 }
@@ -156,6 +157,10 @@ class RestaurantsActivity : AppCompatActivity() {
         }
     )
 
+    private fun createSnackBar(message: String) = Snackbar.make(
+        binding.root, message, Snackbar.LENGTH_SHORT
+    ).show()
+
     private fun materialDialog(
         context: Context,
         title: String,
@@ -172,10 +177,6 @@ class RestaurantsActivity : AppCompatActivity() {
             }
             .show()
     }
-
-    private fun createSnackBar(message: String) = Snackbar.make(
-        binding.root, message, Snackbar.LENGTH_SHORT
-    ).show()
 
     override fun onDestroy() {
         super.onDestroy()

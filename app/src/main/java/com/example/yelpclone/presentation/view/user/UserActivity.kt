@@ -107,6 +107,7 @@ class UserActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID, it)
                                         }
                                         startActivity(detailIntent)
+                                        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right)
                                         finish()
                                     }
                                 }
