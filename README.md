@@ -1,6 +1,6 @@
-# Yelp-RandomUser-GoogleMaps
-Using Yelp api to return a list of businesses in the Tampa Bay area, and a random users API to generate users. 
-Also added in Google maps for the business location. There is also a searchView on both pages - Businesses
+# TampaYelp-RandomUser-GoogleMaps
+Using Yelp api to return a list of businesses & places in the Tampa Bay area, and a random users API to generate users. 
+Also added in Google maps for the business location. There is also a searchView on both pages - Businesses/Places
 searches by name, whereas the users search by size of list(per API). 
 
 #### Here is a list of all the features used in this application:
