@@ -46,42 +46,41 @@ class YelpViewModel @Inject constructor(
         )
     }
 
-    fun getBusinesses(query: String) {
-        viewModelScope.launch(dispatcherProvider.ioCD) {
-            // delay to show our progress bar
-            delay(200)
+    fun getBusinesses(query: String) = viewModelScope.launch(dispatcherProvider.ioCD) {
+        // delay to show our progress bar
+        delay(200)
 
-            try {
-                when (val apiResult =
-                    repositoryImpl.searchBusinesses(
-                        BEARER,
-                        query,
-                        DEFAULT_LOCATION,
-                        DEFAULT_LIMIT,
-                        DEFAULT_OFFSET
-                    )) {
+        try {
+            when (val apiResult =
+                repositoryImpl.searchBusinesses(
+                    BEARER,
+                    query,
+                    DEFAULT_LOCATION,
+                    DEFAULT_LIMIT,
+                    DEFAULT_OFFSET
+                )) {
 
-                    is Resource.Loading -> {
-                        _searchState.value = SearchEvent.Loading()
-                        Log.d(YELP_VIEW_MODEL, "Loading businesses.")
-                    }
-
-                    is Resource.Error -> {
-                        _searchState.value = SearchEvent.Failure(apiResult.message.toString())
-                        Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
-                    }
-
-                    is Resource.Success -> {
-                        _searchState.value = SearchEvent.Success(apiResult.data)
-                        Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
-                    }
+                is Resource.Loading -> {
+                    _searchState.value = SearchEvent.Loading()
+                    Log.d(YELP_VIEW_MODEL, "Loading businesses.")
                 }
 
-            } catch (e: Exception) {
-                Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
+                is Resource.Error -> {
+                    _searchState.value = SearchEvent.Failure(apiResult.message.toString())
+                    Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
+                }
+
+                is Resource.Success -> {
+                    _searchState.value = SearchEvent.Success(apiResult.data)
+                    Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
+                }
             }
+
+        } catch (e: Exception) {
+            Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
         }
     }
+
 
     override fun onCleared() {
         Log.d(YELP_VIEW_MODEL, "Cleared.")
