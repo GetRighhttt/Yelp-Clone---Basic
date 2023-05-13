@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/tool_bar_menu"
-                app:title="Yelp Business List" />
+                app:title="Tampa Yelp List" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
