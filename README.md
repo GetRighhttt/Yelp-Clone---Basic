@@ -1,6 +1,6 @@
 # Yelp-RandomUser-GoogleMaps
-Using Yelp api to return a list of restaurants in the Tampa Bay area, and a random users API to generate users. 
-Also added in Google maps for the restaurant location. There is also a searchView on both pages - Restaurants
+Using Yelp api to return a list of businesses in the Tampa Bay area, and a random users API to generate users. 
+Also added in Google maps for the business location. There is also a searchView on both pages - Businesses
 searches by name, whereas the users search by size of list(per API). 
 
 #### Here is a list of all the features used in this application:
@@ -29,4 +29,4 @@ searches by name, whereas the users search by size of list(per API).
 - Splash Screen
 <hr>
 
-https://user-images.githubusercontent.com/105057858/236584103-d62d3961-15ff-40b7-b411-bf541ecab25e.mp4
+https://github.com/GetRighhttt/Yelp-with-Google-Maps/assets/105057858/98be8485-f035-4a59-83df-adb1205d54a2
