@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityMainBinding
-import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
+import com.example.yelpclone.presentation.view.adapter.YelpBusinessAdapter
 import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.view.user.UserActivity
@@ -31,7 +31,7 @@ class YelpActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
     private val viewModel: YelpViewModel by viewModels()
-    private lateinit var yelpAdapter: RestaurantsAdapter
+    private lateinit var yelpAdapter: YelpBusinessAdapter
 
     companion object {
         private const val MAIN = "MAIN_ACTIVITY"
@@ -54,7 +54,7 @@ class YelpActivity : AppCompatActivity() {
         binding.rvYelpList.apply {
             hasFixedSize()
             yelpAdapter =
-                RestaurantsAdapter(this@YelpActivity)
+                YelpBusinessAdapter(this@YelpActivity)
             adapter = yelpAdapter
             layoutManager = LinearLayoutManager(this@YelpActivity)
         }.also {

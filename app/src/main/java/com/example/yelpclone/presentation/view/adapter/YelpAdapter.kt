@@ -16,9 +16,9 @@ import com.example.yelpclone.R
 import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.YelpListItemBinding
 
-class RestaurantsAdapter(
+class YelpBusinessAdapter(
     private val context: Context
-) : RecyclerView.Adapter<RestaurantsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<YelpBusinessAdapter.ViewHolder>() {
 
     companion object {
 
