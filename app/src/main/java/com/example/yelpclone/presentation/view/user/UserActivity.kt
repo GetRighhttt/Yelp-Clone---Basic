@@ -22,6 +22,7 @@ import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -137,9 +138,14 @@ class UserActivity : AppCompatActivity() {
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    binding.rvUserList.smoothScrollToPosition(0)
-                    userViewModel.getUsers(query)
-                    clearFocus()
+                    binding.pbUser.visibility = View.VISIBLE
+                    lifecycleScope.launch {
+                        binding.rvUserList.smoothScrollToPosition(0)
+                        userViewModel.getUsers(query)
+                        delay(1500)
+                        clearFocus()
+                        binding.pbUser.visibility = View.GONE
+                    }
                 }
                 return true
             }

@@ -23,6 +23,7 @@ import com.example.yelpclone.presentation.viewmodel.main.YelpViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -135,9 +136,14 @@ class YelpActivity : AppCompatActivity() {
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    binding.rvYelpList.smoothScrollToPosition(0)
-                    viewModel.getBusinesses(query)
-                    clearFocus()
+                    binding.pbMain.visibility = View.VISIBLE
+                    lifecycleScope.launch {
+                        binding.rvYelpList.smoothScrollToPosition(0)
+                        viewModel.getBusinesses(query)
+                        delay(1500)
+                        clearFocus()
+                        binding.pbMain.visibility = View.GONE
+                    }
                 }
                 return true
             }
