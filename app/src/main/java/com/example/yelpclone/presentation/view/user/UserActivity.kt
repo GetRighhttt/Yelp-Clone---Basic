@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.size
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -48,6 +49,17 @@ class UserActivity : AppCompatActivity() {
         menuItemSelection()
         setupSearchView()
         backPressed()
+    }
+
+    // shared preferences example storing size of recycler view
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences = getSharedPreferences("UsersList", MODE_PRIVATE)
+        val lastCount = sharedPreferences.getInt("StartCount", 0)
+        val newCount = lastCount + 10
+        Log.d("SHARED_PREFERENCES", "SharedPreferences $newCount")
+        sharedPreferences.edit().putInt("StartCount", newCount).apply()
     }
 
     private fun initRecyclerView() {
