@@ -55,7 +55,7 @@ class UserActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val sharedPreferences = getSharedPreferences("UsersList", MODE_PRIVATE)
+        val sharedPreferences by lazy { getSharedPreferences("UsersList", MODE_PRIVATE) }
         val lastCount = sharedPreferences.getInt("StartCount", 0)
         val newCount = lastCount + 10
         Log.d("SHARED_PREFERENCES", "SharedPreferences $newCount")
