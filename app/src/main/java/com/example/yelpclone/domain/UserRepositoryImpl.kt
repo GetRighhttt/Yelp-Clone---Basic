@@ -12,9 +12,9 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor(
     private val apiService: UserService
 ) : UserRepository {
-    override suspend fun getUsers(): Resource<List<UserList>> {
+    override suspend fun getUsers(size: Int): Resource<List<UserList>> {
         return try {
-            val response = apiService.getUsers()
+            val response = apiService.getUsers(size)
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
                 Resource.Success(result)

@@ -26,24 +26,25 @@ class UserViewModel @Inject constructor(
 
     companion object {
         private const val USER_VIEW_MODEL = "USER_VIEW_MODEL"
+        private const val DEFAULT_SIZE = "20"
     }
 
     init {
         _userState.value = SearchEvent.Loading()
 
         // get users as soon as view model is created
-        getUsers()
+        getUsers(DEFAULT_SIZE)
         Log.d(
             USER_VIEW_MODEL,
             "User View Model is initialized. getRestaurants() method has been called. "
         )
     }
 
-    private fun getUsers() = viewModelScope.launch(dispatcherProvider.ioCD) {
+    fun getUsers(query: String) = viewModelScope.launch(dispatcherProvider.ioCD) {
         delay(200)
 
         try {
-            when (val result = repositoryImpl.getUsers()) {
+            when (val result = repositoryImpl.getUsers(query.toInt())) {
                 is Resource.Error -> {
                     _userState.value = SearchEvent.Failure(result.message.toString())
                     Log.d(USER_VIEW_MODEL, "FAILED to find data: ${result.message}")

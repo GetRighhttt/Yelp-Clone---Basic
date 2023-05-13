@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +46,7 @@ class RestaurantsActivity : AppCompatActivity() {
         initRecyclerView()
         determineSearchState()
         menuItemSelection()
+        setupSearchView()
         backPressed()
     }
 
@@ -104,7 +106,10 @@ class RestaurantsActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID_MAIN, it)
                                         }
                                         startActivity(detailIntent)
-                                        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right)
+                                        overridePendingTransition(
+                                            R.anim.slide_in_left_animation,
+                                            R.anim.slide_out_right
+                                        )
                                         finish()
                                     }
                                 }
@@ -124,6 +129,23 @@ class RestaurantsActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupSearchView() = binding.searchView.apply {
+        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    binding.rvRestaurantList.smoothScrollToPosition(0)
+                    viewModel.getRestaurants(query)
+                    clearFocus()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun menuItemSelection() {

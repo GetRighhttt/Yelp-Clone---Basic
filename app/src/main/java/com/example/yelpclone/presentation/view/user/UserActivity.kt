@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,6 +45,7 @@ class UserActivity : AppCompatActivity() {
         initRecyclerView()
         determineUserState()
         menuItemSelection()
+        setupSearchView()
         backPressed()
     }
 
@@ -107,7 +109,10 @@ class UserActivity : AppCompatActivity() {
                                             detailIntent.putExtra(EXTRA_ITEM_ID, it)
                                         }
                                         startActivity(detailIntent)
-                                        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right)
+                                        overridePendingTransition(
+                                            R.anim.slide_in_left_animation,
+                                            R.anim.slide_out_right
+                                        )
                                         finish()
                                     }
                                 }
@@ -126,6 +131,23 @@ class UserActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupSearchView() = binding.userSearchView.apply {
+        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    binding.rvUserList.smoothScrollToPosition(0)
+                    userViewModel.getUsers(query)
+                    clearFocus()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun menuItemSelection() {

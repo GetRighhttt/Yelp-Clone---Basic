@@ -4,5 +4,5 @@ import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.model.users.UserList
 
 interface UserRepository {
-    suspend fun getUsers(): Resource<List<UserList>>
+    suspend fun getUsers(size: Int): Resource<List<UserList>>
 }

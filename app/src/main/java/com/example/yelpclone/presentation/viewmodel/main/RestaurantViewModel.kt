@@ -3,12 +3,12 @@ package com.example.yelpclone.presentation.viewmodel.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.yelpclone.core.util.Constants
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
-import com.example.yelpclone.domain.RepositoryImpl
-import com.example.yelpclone.core.util.DispatcherProvider
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.core.events.SearchEvent
+import com.example.yelpclone.core.util.Constants
+import com.example.yelpclone.core.util.DispatcherProvider
+import com.example.yelpclone.data.model.yelp.YelpSearchResult
+import com.example.yelpclone.domain.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +29,6 @@ class RestaurantViewModel @Inject constructor(
     companion object {
         private const val RESTAURANT_VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.RESTAURANT_API_KEY}"
-        private const val DEFAULT_SEARCH_TERM = "Seafood"
         private const val DEFAULT_LOCATION = "Tampa"
         private const val DEFAULT_LIMIT = 50
         private const val DEFAULT_OFFSET = 0
@@ -40,14 +39,14 @@ class RestaurantViewModel @Inject constructor(
         _searchState.value = SearchEvent.Loading()
 
         // get the restaurants as soon as the view model is initialized
-        getRestaurants()
+        getRestaurants("")
         Log.d(
             RESTAURANT_VIEW_MODEL,
             "View Model is initialized. getRestaurants() method has been called. "
         )
     }
 
-    private fun getRestaurants(query: String = DEFAULT_SEARCH_TERM) {
+    fun getRestaurants(query: String) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
             delay(200)
@@ -56,7 +55,7 @@ class RestaurantViewModel @Inject constructor(
                 when (val apiResult =
                     repositoryImpl.searchRestaurants(
                         BEARER,
-                        DEFAULT_SEARCH_TERM,
+                        query,
                         DEFAULT_LOCATION,
                         DEFAULT_LIMIT,
                         DEFAULT_OFFSET

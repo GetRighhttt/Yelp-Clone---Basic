@@ -7,9 +7,8 @@ import retrofit2.http.Query
 
 interface UserService {
 
-    @GET("users?size=100")
-    suspend fun getUsers(): Response<List<UserList>>
-
-    @GET("users?size=100")
-    suspend fun searchUsers(@Query("q") query: String): Response<List<UserList>>
+    @GET("users")
+    suspend fun getUsers(
+        @Query("size") size: Int
+    ): Response<List<UserList>>
 }

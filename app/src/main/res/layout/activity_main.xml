@@ -14,7 +14,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/rv_restaurant_list"
+            app:layout_constraintBottom_toTopOf="@id/searchView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -28,13 +28,21 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolBar"
+            app:layout_constraintBottom_toTopOf="@id/rv_restaurant_list"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_restaurant_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolBar"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
             tools:listitem="@layout/yelp_list_item" />
 
         <ProgressBar
