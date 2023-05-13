@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("businesses/search")
-    suspend fun searchRestaurants(
+    suspend fun searchBusinesses(
         @Header("Authorization") authHeader: String,
         @Query("term") searchTerm: String,
         @Query("location") location: String,

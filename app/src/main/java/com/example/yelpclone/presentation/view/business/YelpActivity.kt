@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view.restaurant
+package com.example.yelpclone.presentation.view.business
 
 import android.content.Context
 import android.content.Intent
@@ -19,18 +19,18 @@ import com.example.yelpclone.presentation.view.adapter.RestaurantsAdapter
 import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
 import com.example.yelpclone.presentation.view.user.UserActivity
-import com.example.yelpclone.presentation.viewmodel.main.RestaurantViewModel
+import com.example.yelpclone.presentation.viewmodel.main.YelpViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RestaurantsActivity : AppCompatActivity() {
+class YelpActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
-    private val viewModel: RestaurantViewModel by viewModels()
+    private val viewModel: YelpViewModel by viewModels()
     private lateinit var yelpAdapter: RestaurantsAdapter
 
     companion object {
@@ -51,12 +51,12 @@ class RestaurantsActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        binding.rvRestaurantList.apply {
+        binding.rvYelpList.apply {
             hasFixedSize()
             yelpAdapter =
-                RestaurantsAdapter(this@RestaurantsActivity)
+                RestaurantsAdapter(this@YelpActivity)
             adapter = yelpAdapter
-            layoutManager = LinearLayoutManager(this@RestaurantsActivity)
+            layoutManager = LinearLayoutManager(this@YelpActivity)
         }.also {
             it.smoothScrollToPosition(0)
         }
@@ -99,7 +99,7 @@ class RestaurantsActivity : AppCompatActivity() {
                                         // details
                                         val detailIntent =
                                             Intent(
-                                                this@RestaurantsActivity,
+                                                this@YelpActivity,
                                                 YelpDetailsActivity::class.java
                                             )
                                         val bundle = Bundle().apply {
@@ -135,8 +135,8 @@ class RestaurantsActivity : AppCompatActivity() {
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    binding.rvRestaurantList.smoothScrollToPosition(0)
-                    viewModel.getRestaurants(query)
+                    binding.rvYelpList.smoothScrollToPosition(0)
+                    viewModel.getBusinesses(query)
                     clearFocus()
                 }
                 return true
@@ -154,7 +154,7 @@ class RestaurantsActivity : AppCompatActivity() {
                 when (it.itemId) {
                     R.id.user -> {
                         materialDialog(
-                            this@RestaurantsActivity,
+                            this@YelpActivity,
                             "Navigation".uppercase(),
                             "To see a list of Yelp users, click OK. " +
                                     "Otherwise, click cancel to exit."
@@ -173,7 +173,7 @@ class RestaurantsActivity : AppCompatActivity() {
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val backIntent = Intent(this@RestaurantsActivity, UserActivity::class.java)
+                val backIntent = Intent(this@YelpActivity, UserActivity::class.java)
                 startActivity(backIntent)
             }
         }
@@ -193,7 +193,7 @@ class RestaurantsActivity : AppCompatActivity() {
             .setMessage(message)
             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this@RestaurantsActivity, SecondStartActivity::class.java)
+                val intent = Intent(this@YelpActivity, SecondStartActivity::class.java)
                 startActivity(intent)
                 finish()
             }

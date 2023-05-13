@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RestaurantViewModel @Inject constructor(
+class YelpViewModel @Inject constructor(
     private val repositoryImpl: RepositoryImpl,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
@@ -27,8 +27,8 @@ class RestaurantViewModel @Inject constructor(
     val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
 
     companion object {
-        private const val RESTAURANT_VIEW_MODEL = "MAIN_VIEW_MODEL"
-        private const val BEARER = "Bearer ${Constants.RESTAURANT_API_KEY}"
+        private const val YELP_VIEW_MODEL = "MAIN_VIEW_MODEL"
+        private const val BEARER = "Bearer ${Constants.YELP_API_KEY}"
         private const val DEFAULT_LOCATION = "Tampa"
         private const val DEFAULT_LIMIT = 50
         private const val DEFAULT_OFFSET = 0
@@ -39,21 +39,21 @@ class RestaurantViewModel @Inject constructor(
         _searchState.value = SearchEvent.Loading()
 
         // get the restaurants as soon as the view model is initialized
-        getRestaurants("")
+        getBusinesses("")
         Log.d(
-            RESTAURANT_VIEW_MODEL,
-            "View Model is initialized. getRestaurants() method has been called. "
+            YELP_VIEW_MODEL,
+            "View Model is initialized. Method has been called. "
         )
     }
 
-    fun getRestaurants(query: String) {
+    fun getBusinesses(query: String) {
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
             delay(200)
 
             try {
                 when (val apiResult =
-                    repositoryImpl.searchRestaurants(
+                    repositoryImpl.searchBusinesses(
                         BEARER,
                         query,
                         DEFAULT_LOCATION,
@@ -63,27 +63,27 @@ class RestaurantViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _searchState.value = SearchEvent.Loading()
-                        Log.d(RESTAURANT_VIEW_MODEL, "Loading restaurants.")
+                        Log.d(YELP_VIEW_MODEL, "Loading businesses.")
                     }
 
                     is Resource.Error -> {
                         _searchState.value = SearchEvent.Failure(apiResult.message.toString())
-                        Log.d(RESTAURANT_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
+                        Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
                     }
 
                     is Resource.Success -> {
                         _searchState.value = SearchEvent.Success(apiResult.data)
-                        Log.d(RESTAURANT_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
+                        Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e(RESTAURANT_VIEW_MODEL, "Error getting restaurants!", e)
+                Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
             }
         }
     }
 
     override fun onCleared() {
-        Log.d(RESTAURANT_VIEW_MODEL, "Cleared.")
+        Log.d(YELP_VIEW_MODEL, "Cleared.")
     }
 }

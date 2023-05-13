@@ -17,7 +17,7 @@ import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
 import com.example.yelpclone.presentation.view.details.UserDetailsActivity
-import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
+import com.example.yelpclone.presentation.view.business.YelpActivity
 import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -176,7 +176,7 @@ class UserActivity : AppCompatActivity() {
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val backIntent = Intent(this@UserActivity, RestaurantsActivity::class.java)
+                val backIntent = Intent(this@UserActivity, YelpActivity::class.java)
                 startActivity(backIntent)
                 finish()
             }
@@ -193,7 +193,7 @@ class UserActivity : AppCompatActivity() {
             .setMessage(message)
             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this@UserActivity, RestaurantsActivity::class.java)
+                val intent = Intent(this@UserActivity, YelpActivity::class.java)
                 startActivity(intent)
                 finish()
             }

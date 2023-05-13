@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.example.yelpclone.R
 import com.example.yelpclone.data.model.users.UserList
-import com.example.yelpclone.data.model.yelp.YelpRestaurants
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

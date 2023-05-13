@@ -44,10 +44,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.view.restaurant.RestaurantsActivity"
+            android:name=".presentation.view.business.YelpActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.view.maps.RestaurantMapActivity"
+            android:name=".presentation.view.maps.BusinessMapActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.view.details.YelpDetailsActivity"

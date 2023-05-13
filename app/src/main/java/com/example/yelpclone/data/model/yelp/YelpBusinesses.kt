@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class YelpRestaurants(
+data class YelpBusinesses(
     val rating: Double,
     val phone: String,
     val id: String,

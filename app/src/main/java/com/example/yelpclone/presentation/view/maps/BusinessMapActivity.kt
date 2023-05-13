@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.yelp.YelpRestaurants
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.ActivityRestaurantMapBinding
-import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
+import com.example.yelpclone.presentation.view.business.YelpActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,7 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
+class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityRestaurantMapBinding
@@ -49,11 +49,11 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setYelpDetails() {
         val yelpLat =
-            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.latitude
+            intent.getParcelableExtra<YelpBusinesses>(YelpActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.latitude
         val yelpLon =
-            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.longitude
+            intent.getParcelableExtra<YelpBusinesses>(YelpActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.longitude
         val yelpTitle =
-            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)!!.name
+            intent.getParcelableExtra<YelpBusinesses>(YelpActivity.EXTRA_ITEM_ID_MAIN)!!.name
         coordinates = LatLng(yelpLat, yelpLon)
         title = yelpTitle
     }
@@ -62,8 +62,8 @@ class RestaurantMapActivity : AppCompatActivity(), OnMapReadyCallback {
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(
-                    this@RestaurantMapActivity,
-                    RestaurantsActivity::class.java
+                    this@BusinessMapActivity,
+                    YelpActivity::class.java
                 )
                 startActivity(intent)
                 finish()

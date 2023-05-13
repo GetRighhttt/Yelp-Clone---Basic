@@ -13,8 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.users.UserList
-import com.example.yelpclone.data.model.yelp.YelpRestaurants
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.YelpListItemBinding
 
 class RestaurantsAdapter(
@@ -24,18 +23,18 @@ class RestaurantsAdapter(
     companion object {
 
         private val callback = object
-            : DiffUtil.ItemCallback<YelpRestaurants>() {
+            : DiffUtil.ItemCallback<YelpBusinesses>() {
 
             override fun areItemsTheSame(
-                oldItem: YelpRestaurants,
-                newItem: YelpRestaurants
+                oldItem: YelpBusinesses,
+                newItem: YelpBusinesses
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: YelpRestaurants,
-                newItem: YelpRestaurants
+                oldItem: YelpBusinesses,
+                newItem: YelpBusinesses
             ): Boolean {
                 return oldItem == newItem
             }
@@ -50,23 +49,23 @@ class RestaurantsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(restaurant: YelpRestaurants) {
+        fun bind(business: YelpBusinesses) {
             binding.apply {
-                tvTitle.text = restaurant.name
-                tvAddress.text = restaurant.location.address1
-                tvRating.rating = restaurant.rating.toFloat()
-                tvPhoneNumber.text = restaurant.phone
-                tvCity.text = "${restaurant.location.city}, "
-                tvState.text = " ${restaurant.location.state}, "
-                tvCountry.text = " ${restaurant.location.country}"
-                tvZipcode.text = " ${restaurant.location.zipCode}"
-                tvCategories.text = restaurant.categories[0].title
-                tvDistance.text = restaurant.displayDistance() // converts to nice format
-                tvReviews.text = "${restaurant.reviewCount} Reviews"
+                tvTitle.text = business.name
+                tvAddress.text = business.location.address1
+                tvRating.rating = business.rating.toFloat()
+                tvPhoneNumber.text = business.phone
+                tvCity.text = "${business.location.city}, "
+                tvState.text = " ${business.location.state}, "
+                tvCountry.text = " ${business.location.country}"
+                tvZipcode.text = " ${business.location.zipCode}"
+                tvCategories.text = business.categories[0].title
+                tvDistance.text = business.displayDistance() // converts to nice format
+                tvReviews.text = "${business.reviewCount} Reviews"
 
                 // scale and transform image to our needs using Glide.
                 Glide.with(ivYelpImage.context)
-                    .load(restaurant.imageUrl)
+                    .load(business.imageUrl)
                     .apply(
                         RequestOptions().transform(
                             CenterCrop(), RoundedCorners(20)
@@ -77,7 +76,7 @@ class RestaurantsAdapter(
 
                 root.setOnClickListener{
                     onItemClickListener?.let {
-                        it(restaurant)
+                        it(business)
                     }
                 }
             }
@@ -90,12 +89,12 @@ class RestaurantsAdapter(
     /*
     Item click listener variable.
     */
-    private var onItemClickListener: ((YelpRestaurants) -> Unit)? = null
+    private var onItemClickListener: ((YelpBusinesses) -> Unit)? = null
 
     /*
     Setter method for the onItemClickListener.
     */
-    fun setOnItemClickListener(listener: ((YelpRestaurants) -> Unit)?) {
+    fun setOnItemClickListener(listener: ((YelpBusinesses) -> Unit)?) {
         onItemClickListener = listener
     }
 

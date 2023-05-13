@@ -11,6 +11,6 @@ class MainViewModelFactory(
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return RestaurantViewModel(repositoryImpl, dispatcherProvider) as T
+        return YelpViewModel(repositoryImpl, dispatcherProvider) as T
     }
 }

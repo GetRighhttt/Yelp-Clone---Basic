@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yelpclone.R
 import com.example.yelpclone.databinding.ActivitySplashScreenBinding
-import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
+import com.example.yelpclone.presentation.view.business.YelpActivity
 class ScreenActivity : AppCompatActivity() {
     private var _binding: ActivitySplashScreenBinding? = null
     private val binding get() = _binding!!
@@ -29,7 +28,7 @@ class ScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 startActivity(
-                    Intent(this@ScreenActivity, RestaurantsActivity::class.java)
+                    Intent(this@ScreenActivity, YelpActivity::class.java)
                 )
                 finish()
             }, 800

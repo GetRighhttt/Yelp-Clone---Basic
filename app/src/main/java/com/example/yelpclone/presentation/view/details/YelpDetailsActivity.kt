@@ -12,10 +12,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.yelp.YelpRestaurants
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.ActivityYelpDetailsBinding
-import com.example.yelpclone.presentation.view.maps.RestaurantMapActivity
-import com.example.yelpclone.presentation.view.restaurant.RestaurantsActivity
+import com.example.yelpclone.presentation.view.maps.BusinessMapActivity
+import com.example.yelpclone.presentation.view.business.YelpActivity
 
 class YelpDetailsActivity : AppCompatActivity() {
 
@@ -42,7 +42,7 @@ class YelpDetailsActivity : AppCompatActivity() {
     private fun backPressed() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val intent = Intent(this@YelpDetailsActivity, RestaurantsActivity::class.java)
+                val intent = Intent(this@YelpDetailsActivity, YelpActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -52,18 +52,18 @@ class YelpDetailsActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun displayMainInfo() {
         val yelpDetails =
-            intent.getParcelableExtra<YelpRestaurants>(RestaurantsActivity.EXTRA_ITEM_ID_MAIN)
+            intent.getParcelableExtra<YelpBusinesses>(YelpActivity.EXTRA_ITEM_ID_MAIN)
         binding.apply {
             yelpDetails?.let {
 
                 // Navigating to maps activity
                 val mapIntent = Intent(
                     this@YelpDetailsActivity,
-                    RestaurantMapActivity::class.java
+                    BusinessMapActivity::class.java
                 )
 
                 val mapBundle = Bundle().apply {
-                    mapIntent.putExtra(RestaurantsActivity.EXTRA_ITEM_ID_MAIN, it)
+                    mapIntent.putExtra(YelpActivity.EXTRA_ITEM_ID_MAIN, it)
                 }
 
                 mapsButton.setOnClickListener {
