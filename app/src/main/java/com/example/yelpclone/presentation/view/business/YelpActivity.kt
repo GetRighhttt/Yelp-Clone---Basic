@@ -140,8 +140,8 @@ class YelpActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         binding.rvYelpList.smoothScrollToPosition(0)
                         viewModel.getBusinesses(query)
-                        delay(1500)
                         clearFocus()
+                        delay(1500)
                         binding.pbMain.visibility = View.GONE
                     }
                 }

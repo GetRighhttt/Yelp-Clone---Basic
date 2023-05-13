@@ -142,8 +142,8 @@ class UserActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         binding.rvUserList.smoothScrollToPosition(0)
                         userViewModel.getUsers(query)
-                        delay(1500)
                         clearFocus()
+                        delay(1500)
                         binding.pbUser.visibility = View.GONE
                     }
                 }
