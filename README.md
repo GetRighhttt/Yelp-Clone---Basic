@@ -29,4 +29,6 @@ searches by name, whereas the users search by size of list(per API).
 - Splash Screen
 <hr>
 
-https://github.com/GetRighhttt/Yelp-with-Google-Maps/assets/105057858/98be8485-f035-4a59-83df-adb1205d54a2
+https://github.com/GetRighhttt/Yelp-with-Google-Maps/assets/105057858/855e8370-0b57-4ef7-89ea-5c161443a905
+
+https://github.com/GetRighhttt/Yelp-with-Google-Maps/assets/105057858/456c160a-4d25-4503-8b4e-160b4050e347
