@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.size
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,8 +16,8 @@ import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
-import com.example.yelpclone.presentation.view.details.UserDetailsActivity
 import com.example.yelpclone.presentation.view.business.YelpActivity
+import com.example.yelpclone.presentation.view.details.UserDetailsActivity
 import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar

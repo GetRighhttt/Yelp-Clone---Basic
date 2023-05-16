@@ -1,6 +1,5 @@
 package com.example.yelpclone.domain
 
-import android.util.Log
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.api.UserService
 import com.example.yelpclone.data.model.users.UserList
