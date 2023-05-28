@@ -1,17 +1,12 @@
 package com.example.yelpclone.di
 
-import android.app.Application
-import androidx.room.Room
-import com.example.yelpclone.data.api.RetrofitInstance
-import com.example.yelpclone.data.api.ApiService
-import com.example.yelpclone.domain.RepositoryImpl
 import com.example.yelpclone.core.util.DispatcherProvider
+import com.example.yelpclone.data.api.ApiService
+import com.example.yelpclone.data.api.RetrofitInstance
 import com.example.yelpclone.data.api.UserRetrofitInstance
 import com.example.yelpclone.data.api.UserService
-import com.example.yelpclone.data.db.BusinessDAO
-import com.example.yelpclone.data.db.BusinessDatabase
+import com.example.yelpclone.domain.RepositoryImpl
 import com.example.yelpclone.domain.UserRepositoryImpl
-import com.example.yelpclone.domain.sot.SavedRepository
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModelFactory
 import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModelFactory
 import dagger.Module
@@ -39,28 +34,28 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideYelpRepository(apiService: ApiService, businessDAO: BusinessDAO): RepositoryImpl = RepositoryImpl(apiService, businessDAO)
+    fun provideYelpRepository(apiService: ApiService): RepositoryImpl = RepositoryImpl(apiService)
 
     @Singleton
     @Provides
     fun provideUserRepository(userApiService: UserService): UserRepositoryImpl =
         UserRepositoryImpl(userApiService)
 
-    @Singleton
-    @Provides
-    fun provideSavedRepository(businessDAO: BusinessDAO) = SavedRepository(businessDAO)
+//    @Singleton
+//    @Provides
+//    fun provideSavedRepository(businessDAO: BusinessDAO) = SavedRepository(businessDAO)
 
-    @Singleton
-    @Provides
-    fun provideBusinessDatabase(app: Application): BusinessDatabase = Room.databaseBuilder(
-        app, BusinessDatabase::class.java,
-        "business_db"
-    ).fallbackToDestructiveMigration()
-        .build()
-
-    @Singleton
-    @Provides
-    fun provideDAO(database: BusinessDatabase): BusinessDAO = database.getBusinessDAO()
+//    @Singleton
+//    @Provides
+//    fun provideBusinessDatabase(app: Application): BusinessDatabase = Room.databaseBuilder(
+//        app, BusinessDatabase::class.java,
+//        "business_db"
+//    ).fallbackToDestructiveMigration()
+//        .build()
+//
+//    @Singleton
+//    @Provides
+//    fun provideDAO(database: BusinessDatabase): BusinessDAO = database.getBusinessDAO()
 
     @Singleton
     @Provides

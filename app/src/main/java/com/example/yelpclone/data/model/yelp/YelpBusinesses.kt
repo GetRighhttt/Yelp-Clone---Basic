@@ -9,9 +9,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "businesses")
 data class YelpBusinesses(
+    @PrimaryKey(autoGenerate = true)
+    val roomID: Int? = null,
     val rating: Double,
     val phone: String,
-    @PrimaryKey(autoGenerate = true)
     val id: String,
     val alias: String,
     @SerializedName("is_closed") val isClosed: Boolean,

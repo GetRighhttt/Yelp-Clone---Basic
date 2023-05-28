@@ -83,12 +83,6 @@ class YelpViewModel @Inject constructor(
         }
     }
 
-    fun addBusiness(business: YelpBusinesses) = viewModelScope.launch(Dispatchers.IO) {
-        delay(1000)
-        repositoryImpl.insertBusiness(business)
-    }
-
-
     override fun onCleared() {
         Log.d(YELP_VIEW_MODEL, "Cleared.")
     }
