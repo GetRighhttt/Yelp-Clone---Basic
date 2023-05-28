@@ -3,7 +3,11 @@ package com.example.yelpclone.domain
 import com.example.yelpclone.data.api.ApiService
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.core.events.Resource
+import com.example.yelpclone.data.db.BusinessDAO
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.domain.sot.YelpRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +16,8 @@ Implementing methods outlined in our repository. Serves as layer between api and
  */
 @Singleton
 class RepositoryImpl @Inject constructor (
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val businessDAO: BusinessDAO
 ) : YelpRepository {
 
     override suspend fun searchBusinesses(
@@ -39,6 +44,10 @@ class RepositoryImpl @Inject constructor (
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Unable to retrieve businesses.")
         }
+    }
+
+    override suspend fun insertBusiness(business: YelpBusinesses) = withContext(Dispatchers.IO) {
+        businessDAO.insertABusiness(business)
     }
 }
 

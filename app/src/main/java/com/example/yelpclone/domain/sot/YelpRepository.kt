@@ -1,7 +1,8 @@
 package com.example.yelpclone.domain.sot
 
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.core.events.Resource
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
+import com.example.yelpclone.data.model.yelp.YelpSearchResult
 
 /*
 Acts as a single source of truth and additional layer of abstraction.
@@ -16,4 +17,6 @@ interface YelpRepository {
         location: String,
         limit: Int,
         offset : Int): Resource<YelpSearchResult>
+
+    suspend fun insertBusiness(business: YelpBusinesses)
 }

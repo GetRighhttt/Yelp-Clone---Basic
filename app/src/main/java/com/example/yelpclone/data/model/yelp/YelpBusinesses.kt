@@ -1,13 +1,17 @@
 package com.example.yelpclone.data.model.yelp
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "businesses")
 data class YelpBusinesses(
     val rating: Double,
     val phone: String,
+    @PrimaryKey(autoGenerate = true)
     val id: String,
     val alias: String,
     @SerializedName("is_closed") val isClosed: Boolean,

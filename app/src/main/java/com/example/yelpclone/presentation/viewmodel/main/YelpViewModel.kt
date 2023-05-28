@@ -7,9 +7,11 @@ import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.core.util.Constants
 import com.example.yelpclone.core.util.DispatcherProvider
+import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.domain.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -79,6 +81,11 @@ class YelpViewModel @Inject constructor(
         } catch (e: Exception) {
             Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
         }
+    }
+
+    fun addBusiness(business: YelpBusinesses) = viewModelScope.launch(Dispatchers.IO) {
+        delay(1000)
+        repositoryImpl.insertBusiness(business)
     }
 
 
