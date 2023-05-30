@@ -4,6 +4,8 @@ import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.api.ApiService
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.domain.sot.YelpRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,13 +25,15 @@ class RepositoryImpl @Inject constructor (
         offset: Int
     ): Resource<YelpSearchResult> {
         return try {
-            val response = apiService.searchBusinesses(
-                authHeader,
-                searchTerm,
-                location,
-                limit,
-                offset
-            )
+            val response = withContext(Dispatchers.IO) {
+                apiService.searchBusinesses(
+                    authHeader,
+                    searchTerm,
+                    location,
+                    limit,
+                    offset
+                )
+            }
             val result = response.body()
             if ((response.isSuccessful) && (result != null)) {
                 Resource.Success(result)
