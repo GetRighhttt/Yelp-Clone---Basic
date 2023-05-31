@@ -39,10 +39,10 @@ class UserDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         displayUserInfo()
-        backPressed()
+        onBackPressedInitializer()
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@UserDetailsActivity, UserActivity::class.java)

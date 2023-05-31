@@ -36,10 +36,10 @@ class YelpDetailsActivity : AppCompatActivity() {
         _binding = ActivityYelpDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         displayMainInfo()
-        backPressed()
+        onBackPressedInitializer()
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@YelpDetailsActivity, YelpActivity::class.java)

@@ -43,7 +43,7 @@ class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(coordinates!!).title(title!!))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates!!))
         // swipe mechanism
-        backPressed()
+        onBackPressedInitializer()
     }
 
     private fun setUserDetails() {
@@ -60,7 +60,7 @@ class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
         title = userTitle
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(

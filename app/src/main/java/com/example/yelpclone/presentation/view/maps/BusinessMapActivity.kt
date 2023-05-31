@@ -43,7 +43,7 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates!!))
 
         // swipe mechanism
-        backPressed()
+        onBackPressedInitializer()
 
     }
 
@@ -58,7 +58,7 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
         title = yelpTitle
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(

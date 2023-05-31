@@ -46,9 +46,9 @@ class YelpActivity : AppCompatActivity() {
 
         initRecyclerView()
         determineSearchState()
-        menuItemSelection()
+        onMenuItemSelection()
         setupSearchView()
-        backPressed()
+        onBackPressedInitializer()
     }
 
     private fun initRecyclerView() {
@@ -154,7 +154,7 @@ class YelpActivity : AppCompatActivity() {
         })
     }
 
-    private fun menuItemSelection() {
+    private fun onMenuItemSelection() {
         binding.apply {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -176,7 +176,7 @@ class YelpActivity : AppCompatActivity() {
         }
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val backIntent = Intent(this@YelpActivity, UserActivity::class.java)

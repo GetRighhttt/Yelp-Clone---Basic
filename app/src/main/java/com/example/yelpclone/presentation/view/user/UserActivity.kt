@@ -45,9 +45,9 @@ class UserActivity : AppCompatActivity() {
 
         initRecyclerView()
         determineUserState()
-        menuItemSelection()
+        onMenuItemSelection()
         setupSearchView()
-        backPressed()
+        onBackPressedInitializer()
     }
 
     // shared preferences example storing size of recycler view
@@ -167,7 +167,7 @@ class UserActivity : AppCompatActivity() {
         })
     }
 
-    private fun menuItemSelection() {
+    private fun onMenuItemSelection() {
         binding.apply {
             topUserAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -190,7 +190,7 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    private fun backPressed() = onBackPressedDispatcher.addCallback(
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
         this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val backIntent = Intent(this@UserActivity, YelpActivity::class.java)
