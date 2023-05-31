@@ -34,7 +34,7 @@ class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        setUserDetails()
+        setUserDetailsFromIntents()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -46,7 +46,7 @@ class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
         onBackPressedInitializer()
     }
 
-    private fun setUserDetails() {
+    private fun setUserDetailsFromIntents() {
         val userLat =
             intent.getParcelableExtra<UserList>(UserDetailsActivity.EXTRA_ITEM_ID)!!
                 .address.coordinates.latitude

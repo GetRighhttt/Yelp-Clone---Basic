@@ -172,7 +172,7 @@ class UserActivity : AppCompatActivity() {
             topUserAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.main -> {
-                        materialDialog(
+                        materialDialogBuilder(
                             this@UserActivity,
                             "Navigation".uppercase(),
                             "To go back to restaurants, click OK. " +
@@ -200,7 +200,7 @@ class UserActivity : AppCompatActivity() {
         }
     )
 
-    private fun materialDialog(
+    private fun materialDialogBuilder(
         context: Context,
         title: String,
         message: String

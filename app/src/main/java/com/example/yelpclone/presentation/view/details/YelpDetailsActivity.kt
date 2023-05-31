@@ -39,16 +39,6 @@ class YelpDetailsActivity : AppCompatActivity() {
         onBackPressedInitializer()
     }
 
-    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
-        this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val intent = Intent(this@YelpDetailsActivity, YelpActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-    )
-
     @SuppressLint("SetTextI18n")
     private fun displayMainInfo() {
         val yelpDetails =
@@ -99,6 +89,16 @@ class YelpDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
+        this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@YelpDetailsActivity, YelpActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    )
 
     override fun onDestroy() {
         super.onDestroy()

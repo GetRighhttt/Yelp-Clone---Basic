@@ -159,7 +159,7 @@ class YelpActivity : AppCompatActivity() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.user -> {
-                        materialDialog(
+                        materialDialogBuilder(
                             this@YelpActivity,
                             "Navigation".uppercase(),
                             "To see a list of Yelp users, click OK. " +
@@ -189,7 +189,7 @@ class YelpActivity : AppCompatActivity() {
         binding.root, message, Snackbar.LENGTH_SHORT
     ).show()
 
-    private fun materialDialog(
+    private fun materialDialogBuilder(
         context: Context,
         title: String,
         message: String

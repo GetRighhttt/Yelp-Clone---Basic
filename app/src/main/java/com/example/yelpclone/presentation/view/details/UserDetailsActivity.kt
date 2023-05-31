@@ -42,16 +42,6 @@ class UserDetailsActivity : AppCompatActivity() {
         onBackPressedInitializer()
     }
 
-    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
-        this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val intent = Intent(this@UserDetailsActivity, UserActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-    )
-
     @SuppressLint("SetTextI18n")
     private fun displayUserInfo() {
         val userDetails = intent.getParcelableExtra<UserList>(UserActivity.EXTRA_ITEM_ID)
@@ -95,6 +85,16 @@ class UserDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun onBackPressedInitializer() = onBackPressedDispatcher.addCallback(
+        this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@UserDetailsActivity, UserActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    )
 
     override fun onDestroy() {
         super.onDestroy()

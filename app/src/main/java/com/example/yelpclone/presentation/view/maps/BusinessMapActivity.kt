@@ -33,7 +33,7 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        setYelpDetails()
+        setYelpDetailsFromIntents()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -47,7 +47,7 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun setYelpDetails() {
+    private fun setYelpDetailsFromIntents() {
         val yelpLat =
             intent.getParcelableExtra<YelpBusinesses>(YelpActivity.EXTRA_ITEM_ID_MAIN)!!.coordinates.latitude
         val yelpLon =
