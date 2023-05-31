@@ -27,21 +27,21 @@ object RetrofitInstance {
     }
 
     private val gson: GsonConverterFactory = GsonConverterFactory.create()
-    val retrofit: ApiService = Retrofit.Builder()
+    val retrofit: YelpApiService = Retrofit.Builder()
         .baseUrl(Constants.YELP_BASE_URL)
         .addConverterFactory(gson)
         .client(provideHttpInterceptor())
         .build()
-        .create(ApiService::class.java)
+        .create(YelpApiService::class.java)
 }
 
 object UserRetrofitInstance {
 
     private val gson: GsonConverterFactory = GsonConverterFactory.create()
-    val userRetrofit: UserService = Retrofit.Builder()
+    val userRetrofit: UserApiService = Retrofit.Builder()
         .baseUrl(Constants.RANDOM_BASE_URL)
         .addConverterFactory(gson)
         .client(RetrofitInstance.provideHttpInterceptor())
         .build()
-        .create(UserService::class.java)
+        .create(UserApiService::class.java)
 }

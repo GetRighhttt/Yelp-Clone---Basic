@@ -1,7 +1,7 @@
 package com.example.yelpclone.domain
 
 import com.example.yelpclone.core.events.Resource
-import com.example.yelpclone.data.api.ApiService
+import com.example.yelpclone.data.api.YelpApiService
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.domain.sot.YelpRepository
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ Implementing methods outlined in our repository. Serves as layer between api and
  */
 @Singleton
 class RepositoryImpl @Inject constructor (
-    private val apiService: ApiService
+    private val yelpApiService: YelpApiService
 ) : YelpRepository {
 
     override suspend fun searchBusinesses(
@@ -26,7 +26,7 @@ class RepositoryImpl @Inject constructor (
     ): Resource<YelpSearchResult> {
         return try {
             val response = withContext(Dispatchers.IO) {
-                apiService.searchBusinesses(
+                yelpApiService.searchBusinesses(
                     authHeader,
                     searchTerm,
                     location,

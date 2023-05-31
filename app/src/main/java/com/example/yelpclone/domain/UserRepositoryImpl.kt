@@ -1,7 +1,7 @@
 package com.example.yelpclone.domain
 
 import com.example.yelpclone.core.events.Resource
-import com.example.yelpclone.data.api.UserService
+import com.example.yelpclone.data.api.UserApiService
 import com.example.yelpclone.data.model.users.UserList
 import com.example.yelpclone.domain.sot.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-    private val apiService: UserService
+    private val apiService: UserApiService
 ) : UserRepository {
     override suspend fun getUsers(size: Int): Resource<List<UserList>> {
         return try {

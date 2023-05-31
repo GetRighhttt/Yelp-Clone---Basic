@@ -1,10 +1,10 @@
 package com.example.yelpclone.di
 
 import com.example.yelpclone.core.util.DispatcherProvider
-import com.example.yelpclone.data.api.ApiService
+import com.example.yelpclone.data.api.YelpApiService
 import com.example.yelpclone.data.api.RetrofitInstance
 import com.example.yelpclone.data.api.UserRetrofitInstance
-import com.example.yelpclone.data.api.UserService
+import com.example.yelpclone.data.api.UserApiService
 import com.example.yelpclone.domain.RepositoryImpl
 import com.example.yelpclone.domain.UserRepositoryImpl
 import com.example.yelpclone.presentation.viewmodel.main.MainViewModelFactory
@@ -26,36 +26,20 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideYelpApiService(): ApiService = RetrofitInstance.retrofit
+    fun provideYelpApiService(): YelpApiService = RetrofitInstance.retrofit
 
     @Singleton
     @Provides
-    fun provideUserApiService(): UserService = UserRetrofitInstance.userRetrofit
+    fun provideUserApiService(): UserApiService = UserRetrofitInstance.userRetrofit
 
     @Singleton
     @Provides
-    fun provideYelpRepository(apiService: ApiService): RepositoryImpl = RepositoryImpl(apiService)
+    fun provideYelpRepository(yelpApiService: YelpApiService): RepositoryImpl = RepositoryImpl(yelpApiService)
 
     @Singleton
     @Provides
-    fun provideUserRepository(userApiService: UserService): UserRepositoryImpl =
+    fun provideUserRepository(userApiService: UserApiService): UserRepositoryImpl =
         UserRepositoryImpl(userApiService)
-
-//    @Singleton
-//    @Provides
-//    fun provideSavedRepository(businessDAO: BusinessDAO) = SavedRepository(businessDAO)
-
-//    @Singleton
-//    @Provides
-//    fun provideBusinessDatabase(app: Application): BusinessDatabase = Room.databaseBuilder(
-//        app, BusinessDatabase::class.java,
-//        "business_db"
-//    ).fallbackToDestructiveMigration()
-//        .build()
-//
-//    @Singleton
-//    @Provides
-//    fun provideDAO(database: BusinessDatabase): BusinessDAO = database.getBusinessDAO()
 
     @Singleton
     @Provides

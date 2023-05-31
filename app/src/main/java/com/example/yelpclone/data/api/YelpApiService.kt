@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface ApiService {
+interface YelpApiService {
 
     @GET("businesses/search")
     suspend fun searchBusinesses(
