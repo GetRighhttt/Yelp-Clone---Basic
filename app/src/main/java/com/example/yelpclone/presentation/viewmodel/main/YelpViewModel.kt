@@ -11,6 +11,7 @@ import com.example.yelpclone.data.model.yelp.YelpBusinesses
 import com.example.yelpclone.data.model.yelp.YelpSearchResult
 import com.example.yelpclone.domain.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,12 +29,40 @@ class YelpViewModel @Inject constructor(
     )
     val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
 
-    companion object {
-        private const val YELP_VIEW_MODEL = "MAIN_VIEW_MODEL"
-        private const val BEARER = "Bearer ${Constants.YELP_API_KEY}"
-        private const val DEFAULT_LOCATION = "Tampa"
-        private const val DEFAULT_LIMIT = 50
-        private const val DEFAULT_OFFSET = 0
+    val getBusinesses: (String) -> Unit = { query ->
+        viewModelScope.launch(dispatcherProvider.ioCD) {
+            // delay to show our progress bar
+            delay(200)
+
+            try {
+                when (val apiResult =
+                    repositoryImpl.searchBusinesses(
+                        BEARER,
+                        query,
+                        DEFAULT_LOCATION,
+                        DEFAULT_LIMIT,
+                        DEFAULT_OFFSET
+                    )) {
+                    is Resource.Loading -> {
+                        _searchState.value = SearchEvent.Loading()
+                        Log.d(YELP_VIEW_MODEL, "Loading businesses.")
+                    }
+
+                    is Resource.Error -> {
+                        _searchState.value = SearchEvent.Failure(apiResult.message.toString())
+                        Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
+                    }
+
+                    is Resource.Success -> {
+                        _searchState.value = SearchEvent.Success(apiResult.data)
+                        Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
+            }
+        }
     }
 
     init {
@@ -48,42 +77,15 @@ class YelpViewModel @Inject constructor(
         )
     }
 
-    fun getBusinesses(query: String) = viewModelScope.launch(dispatcherProvider.ioCD) {
-        // delay to show our progress bar
-        delay(200)
-
-        try {
-            when (val apiResult =
-                repositoryImpl.searchBusinesses(
-                    BEARER,
-                    query,
-                    DEFAULT_LOCATION,
-                    DEFAULT_LIMIT,
-                    DEFAULT_OFFSET
-                )) {
-
-                is Resource.Loading -> {
-                    _searchState.value = SearchEvent.Loading()
-                    Log.d(YELP_VIEW_MODEL, "Loading businesses.")
-                }
-
-                is Resource.Error -> {
-                    _searchState.value = SearchEvent.Failure(apiResult.message.toString())
-                    Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
-                }
-
-                is Resource.Success -> {
-                    _searchState.value = SearchEvent.Success(apiResult.data)
-                    Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
-                }
-            }
-
-        } catch (e: Exception) {
-            Log.e(YELP_VIEW_MODEL, "Error getting businesses!", e)
-        }
-    }
-
     override fun onCleared() {
         Log.d(YELP_VIEW_MODEL, "Cleared.")
+    }
+
+    companion object {
+        private const val YELP_VIEW_MODEL = "MAIN_VIEW_MODEL"
+        private const val BEARER = "Bearer ${Constants.YELP_API_KEY}"
+        private const val DEFAULT_LOCATION = "Tampa"
+        private const val DEFAULT_LIMIT = 50
+        private const val DEFAULT_OFFSET = 0
     }
 }

@@ -24,11 +24,6 @@ class UserViewModel @Inject constructor(
         MutableStateFlow(SearchEvent.Idle())
     val userState: MutableStateFlow<SearchEvent<List<UserList?>>> get() = _userState
 
-    companion object {
-        private const val USER_VIEW_MODEL = "USER_VIEW_MODEL"
-        private const val DEFAULT_SIZE = "20"
-    }
-
     init {
         _userState.value = SearchEvent.Loading()
 
@@ -69,5 +64,10 @@ class UserViewModel @Inject constructor(
 
     override fun onCleared() {
         Log.d(USER_VIEW_MODEL, "Cleared.")
+    }
+
+    companion object {
+        private const val USER_VIEW_MODEL = "USER_VIEW_MODEL"
+        private const val DEFAULT_SIZE = "20"
     }
 }
