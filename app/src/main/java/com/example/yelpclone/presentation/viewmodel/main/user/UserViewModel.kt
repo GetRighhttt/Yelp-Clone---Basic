@@ -23,9 +23,12 @@ class UserViewModel @Inject constructor(
     private val _userState: MutableStateFlow<SearchEvent<List<UserList?>>> =
         MutableStateFlow(SearchEvent.Idle())
     val userState: MutableStateFlow<SearchEvent<List<UserList?>>> get() = _userState
+    private operator fun MutableStateFlow<SearchEvent<List<UserList?>>>.invoke(value: SearchEvent<List<UserList?>>) {
+        _userState.value = value
+    }
 
     init {
-        _userState.value = SearchEvent.Loading()
+        _userState.invoke(SearchEvent.Loading())
 
         // get users as soon as view model is created
         getUsers(DEFAULT_SIZE)
@@ -41,18 +44,18 @@ class UserViewModel @Inject constructor(
         try {
             when (val result = repositoryImpl.getUsers(query.toInt())) {
                 is Resource.Error -> {
-                    _userState.value = SearchEvent.Failure(result.message.toString())
+                    _userState.invoke(SearchEvent.Failure(result.message.toString()))
                     Log.d(USER_VIEW_MODEL, "FAILED to find data: ${result.message}")
                 }
 
                 is Resource.Loading -> {
-                    _userState.value = SearchEvent.Loading()
+                    _userState.invoke(SearchEvent.Loading())
                     Log.d(USER_VIEW_MODEL, "Loading restaurants.")
 
                 }
 
                 is Resource.Success -> {
-                    _userState.value = result.data?.let { SearchEvent.Success(it) }!!
+                    _userState.invoke(result.data?.let { SearchEvent.Success(it) }!!)
                     Log.d(USER_VIEW_MODEL, "SUCCESSFULLY found data! : ${result.data.toList()}")
 
                 }
