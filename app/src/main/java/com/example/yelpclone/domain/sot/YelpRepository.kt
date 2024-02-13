@@ -1,8 +1,8 @@
 package com.example.yelpclone.domain.sot
 
 import com.example.yelpclone.core.events.Resource
-import com.example.yelpclone.data.model.yelp.YelpBusinesses
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
+import com.example.yelpclone.domain.model.yelp.YelpBusinesses
+import com.example.yelpclone.domain.model.yelp.YelpSearchResult
 
 interface YelpRepository {
     suspend fun searchBusinesses(

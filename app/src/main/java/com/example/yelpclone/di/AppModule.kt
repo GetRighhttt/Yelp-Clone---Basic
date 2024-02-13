@@ -5,10 +5,8 @@ import com.example.yelpclone.data.api.YelpApiService
 import com.example.yelpclone.data.api.RetrofitInstance
 import com.example.yelpclone.data.api.UserRetrofitInstance
 import com.example.yelpclone.data.api.UserApiService
-import com.example.yelpclone.domain.RepositoryImpl
-import com.example.yelpclone.domain.UserRepositoryImpl
-import com.example.yelpclone.presentation.viewmodel.main.MainViewModelFactory
-import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModelFactory
+import com.example.yelpclone.data.api.RepositoryImpl
+import com.example.yelpclone.data.api.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,23 +50,5 @@ object AppModule {
             get() = Dispatchers.Default
         override val unconfinedCD: CoroutineDispatcher
             get() = Dispatchers.Unconfined
-    }
-
-    @Singleton
-    @Provides
-    fun provideMainViewModelFactory(
-        repository: RepositoryImpl,
-        dispatcherProvider: DispatcherProvider
-    ): MainViewModelFactory {
-        return MainViewModelFactory(repository, dispatcherProvider)
-    }
-
-    @Singleton
-    @Provides
-    fun provideUserViewModelFactory(
-        repository: UserRepositoryImpl,
-        dispatcherProvider: DispatcherProvider
-    ): UserViewModelFactory {
-        return UserViewModelFactory(repository, dispatcherProvider)
     }
 }

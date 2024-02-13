@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.yelp.YelpBusinesses
+import com.example.yelpclone.domain.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.ActivityRestaurantMapBinding
-import com.example.yelpclone.presentation.view.business.YelpActivity
+import com.example.yelpclone.presentation.view.activity.YelpActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

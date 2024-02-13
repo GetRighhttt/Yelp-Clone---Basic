@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.yelp.YelpBusinesses
+import com.example.yelpclone.domain.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.YelpListItemBinding
 
 class YelpBusinessAdapter(

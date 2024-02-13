@@ -1,8 +1,8 @@
-package com.example.yelpclone.domain
+package com.example.yelpclone.data.api
 
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.api.YelpApiService
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
+import com.example.yelpclone.domain.model.yelp.YelpSearchResult
 import com.example.yelpclone.domain.sot.YelpRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

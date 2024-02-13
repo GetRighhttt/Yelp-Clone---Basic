@@ -2,9 +2,9 @@ package com.example.yelpclone.core.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.example.yelpclone.data.model.yelp.YelpCategories
-import com.example.yelpclone.data.model.yelp.YelpCoordinates
-import com.example.yelpclone.data.model.yelp.YelpLocations
+import com.example.yelpclone.domain.model.yelp.YelpCategories
+import com.example.yelpclone.domain.model.yelp.YelpCoordinates
+import com.example.yelpclone.domain.model.yelp.YelpLocations
 import com.google.gson.reflect.TypeToken
 
 @ProvidedTypeConverter

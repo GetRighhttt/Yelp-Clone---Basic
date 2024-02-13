@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yelpclone.databinding.ActivitySecondStartBinding
-import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.view.activity.UserActivity
 
 class SecondStartActivity : AppCompatActivity() {
 

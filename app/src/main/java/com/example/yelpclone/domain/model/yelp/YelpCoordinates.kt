@@ -1,4 +1,4 @@
-package com.example.yelpclone.data.model.yelp
+package com.example.yelpclone.domain.model.yelp
 
 import java.io.Serializable
 

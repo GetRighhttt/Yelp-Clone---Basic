@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.viewmodel.main.user
+package com.example.yelpclone.presentation.view.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.core.util.DispatcherProvider
-import com.example.yelpclone.data.model.users.UserList
-import com.example.yelpclone.domain.UserRepositoryImpl
+import com.example.yelpclone.domain.model.users.UserList
+import com.example.yelpclone.data.api.UserRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ class UserViewModel @Inject constructor(
     }
 
     init {
-        _userState.invoke(SearchEvent.Loading())
+        _userState(SearchEvent.Loading())
 
         // get users as soon as view model is created
         getUsers(DEFAULT_SIZE)
@@ -44,18 +44,18 @@ class UserViewModel @Inject constructor(
         try {
             when (val result = repositoryImpl.getUsers(query.toInt())) {
                 is Resource.Error -> {
-                    _userState.invoke(SearchEvent.Failure(result.message.toString()))
+                    _userState(SearchEvent.Failure(result.message.toString()))
                     Log.d(USER_VIEW_MODEL, "FAILED to find data: ${result.message}")
                 }
 
                 is Resource.Loading -> {
-                    _userState.invoke(SearchEvent.Loading())
+                    _userState(SearchEvent.Loading())
                     Log.d(USER_VIEW_MODEL, "Loading restaurants.")
 
                 }
 
                 is Resource.Success -> {
-                    _userState.invoke(result.data?.let { SearchEvent.Success(it) }!!)
+                    _userState(result.data?.let { SearchEvent.Success(it) }!!)
                     Log.d(USER_VIEW_MODEL, "SUCCESSFULLY found data! : ${result.data.toList()}")
 
                 }

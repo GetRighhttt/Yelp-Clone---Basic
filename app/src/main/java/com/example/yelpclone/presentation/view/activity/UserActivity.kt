@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view.user
+package com.example.yelpclone.presentation.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -16,9 +16,8 @@ import com.example.yelpclone.R
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.databinding.ActivityUserBinding
 import com.example.yelpclone.presentation.view.adapter.UserAdapter
-import com.example.yelpclone.presentation.view.business.YelpActivity
 import com.example.yelpclone.presentation.view.details.UserDetailsActivity
-import com.example.yelpclone.presentation.viewmodel.main.user.UserViewModel
+import com.example.yelpclone.presentation.view.viewmodels.UserViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

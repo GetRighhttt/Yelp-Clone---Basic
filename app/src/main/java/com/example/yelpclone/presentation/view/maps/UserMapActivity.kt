@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.users.UserList
+import com.example.yelpclone.domain.model.users.UserList
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.yelpclone.databinding.ActivityUserMapBinding
 import com.example.yelpclone.presentation.view.details.UserDetailsActivity
-import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.view.activity.UserActivity
 
 class UserMapActivity : AppCompatActivity(), OnMapReadyCallback {
 

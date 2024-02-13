@@ -12,11 +12,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.yelp.YelpBusinesses
+import com.example.yelpclone.domain.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.ActivityYelpDetailsBinding
 import com.example.yelpclone.presentation.view.maps.BusinessMapActivity
-import com.example.yelpclone.presentation.view.business.YelpActivity
+import com.example.yelpclone.presentation.view.activity.YelpActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class YelpDetailsActivity : AppCompatActivity() {
 
     private var _binding: ActivityYelpDetailsBinding? = null

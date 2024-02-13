@@ -1,8 +1,8 @@
-package com.example.yelpclone.domain
+package com.example.yelpclone.data.api
 
 import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.data.api.UserApiService
-import com.example.yelpclone.data.model.users.UserList
+import com.example.yelpclone.domain.model.users.UserList
 import com.example.yelpclone.domain.sot.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,6 +1,6 @@
 package com.example.yelpclone.data.api
 
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
+import com.example.yelpclone.domain.model.yelp.YelpSearchResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header

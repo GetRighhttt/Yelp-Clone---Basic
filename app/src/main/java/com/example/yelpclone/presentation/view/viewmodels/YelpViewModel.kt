@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.viewmodel.main
+package com.example.yelpclone.presentation.view.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -7,12 +7,9 @@ import com.example.yelpclone.core.events.Resource
 import com.example.yelpclone.core.events.SearchEvent
 import com.example.yelpclone.core.util.Constants
 import com.example.yelpclone.core.util.DispatcherProvider
-import com.example.yelpclone.data.model.yelp.YelpBusinesses
-import com.example.yelpclone.data.model.yelp.YelpSearchResult
-import com.example.yelpclone.domain.RepositoryImpl
+import com.example.yelpclone.domain.model.yelp.YelpSearchResult
+import com.example.yelpclone.data.api.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -28,6 +25,9 @@ class YelpViewModel @Inject constructor(
         SearchEvent.Idle()
     )
     val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
+    private operator fun MutableStateFlow<SearchEvent<YelpSearchResult?>>.invoke(value: SearchEvent<YelpSearchResult?>) {
+        _searchState.value = value
+    }
 
     val getBusinesses: (String) -> Unit = { query ->
         viewModelScope.launch(dispatcherProvider.ioCD) {
@@ -44,17 +44,17 @@ class YelpViewModel @Inject constructor(
                         DEFAULT_OFFSET
                     )) {
                     is Resource.Loading -> {
-                        _searchState.value = SearchEvent.Loading()
+                        _searchState(SearchEvent.Loading())
                         Log.d(YELP_VIEW_MODEL, "Loading businesses.")
                     }
 
                     is Resource.Error -> {
-                        _searchState.value = SearchEvent.Failure(apiResult.message.toString())
+                        _searchState(SearchEvent.Failure(apiResult.message.toString()))
                         Log.d(YELP_VIEW_MODEL, "FAILED to find data: ${apiResult.message}")
                     }
 
                     is Resource.Success -> {
-                        _searchState.value = SearchEvent.Success(apiResult.data)
+                        _searchState(SearchEvent.Success(apiResult.data))
                         Log.d(YELP_VIEW_MODEL, "SUCCESSFULLY found data! : ${apiResult.data}")
                     }
                 }
@@ -67,7 +67,7 @@ class YelpViewModel @Inject constructor(
 
     init {
         // set the initial state to Loading() so the progress bar shows
-        _searchState.value = SearchEvent.Loading()
+        _searchState(SearchEvent.Loading())
 
         // get the restaurants as soon as the view model is initialized
         getBusinesses("")

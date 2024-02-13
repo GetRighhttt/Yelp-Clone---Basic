@@ -1,4 +1,4 @@
-package com.example.yelpclone.presentation.view.business
+package com.example.yelpclone.presentation.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -18,8 +18,7 @@ import com.example.yelpclone.databinding.ActivityMainBinding
 import com.example.yelpclone.presentation.view.adapter.YelpBusinessAdapter
 import com.example.yelpclone.presentation.view.details.YelpDetailsActivity
 import com.example.yelpclone.presentation.view.splashscreens.SecondStartActivity
-import com.example.yelpclone.presentation.view.user.UserActivity
-import com.example.yelpclone.presentation.viewmodel.main.YelpViewModel
+import com.example.yelpclone.presentation.view.viewmodels.YelpViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

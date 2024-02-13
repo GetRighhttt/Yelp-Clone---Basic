@@ -1,4 +1,4 @@
-package com.example.yelpclone.data.model.yelp
+package com.example.yelpclone.domain.model.yelp
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -11,10 +11,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.yelpclone.R
-import com.example.yelpclone.data.model.users.UserList
+import com.example.yelpclone.domain.model.users.UserList
 import com.example.yelpclone.databinding.ActivityDetailsBinding
 import com.example.yelpclone.presentation.view.maps.UserMapActivity
-import com.example.yelpclone.presentation.view.user.UserActivity
+import com.example.yelpclone.presentation.view.activity.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.example.yelpclone.data.model.users
+package com.example.yelpclone.domain.model.users
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
