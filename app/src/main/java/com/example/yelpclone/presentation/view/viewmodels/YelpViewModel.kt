@@ -25,7 +25,9 @@ class YelpViewModel @Inject constructor(
         SearchEvent.Idle()
     )
     val searchState: MutableStateFlow<SearchEvent<YelpSearchResult?>> get() = _searchState
-    private operator fun MutableStateFlow<SearchEvent<YelpSearchResult?>>.invoke(value: SearchEvent<YelpSearchResult?>) {
+    private operator fun MutableStateFlow<SearchEvent<YelpSearchResult?>>.invoke(
+        value: SearchEvent<YelpSearchResult?>
+    ) {
         _searchState.value = value
     }
 
