@@ -6,6 +6,7 @@ import com.example.yelpclone.data.api.YelpRetrofitInstance
 import com.example.yelpclone.data.api.UserRetrofitInstance
 import com.example.yelpclone.data.api.UserApiService
 import com.example.yelpclone.data.api.RepositoryImpl
+import com.example.yelpclone.data.api.RetrofitFactory
 import com.example.yelpclone.data.api.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 /*
@@ -24,11 +26,11 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideYelpApiService(): YelpApiService = YelpRetrofitInstance.retrofit
+    fun provideYelpApiService(): Retrofit? = RetrofitFactory.determineInstance(YelpApiService::class.java)
 
     @Singleton
     @Provides
-    fun provideUserApiService(): UserApiService = UserRetrofitInstance.userRetrofit
+    fun provideUserApiService(): Retrofit? = RetrofitFactory.determineInstance(UserApiService::class.java)
 
     @Singleton
     @Provides
