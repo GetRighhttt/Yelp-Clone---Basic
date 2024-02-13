@@ -10,23 +10,24 @@ import java.util.concurrent.TimeUnit
 /*
 Serves as a singleton for our retrofit instance.
  */
-object RetrofitInstance {
 
-    fun provideHttpInterceptor(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        val client = OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(25, TimeUnit.SECONDS)
-        }.build()
-        return client
+fun provideHttpInterceptor(): OkHttpClient {
+    val interceptor = HttpLoggingInterceptor().apply {
+        this.level = HttpLoggingInterceptor.Level.BODY
     }
 
-    private val gson: GsonConverterFactory = GsonConverterFactory.create()
+    val client = OkHttpClient.Builder().apply {
+        this.addInterceptor(interceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(25, TimeUnit.SECONDS)
+    }.build()
+    return client
+}
+
+private val gson: GsonConverterFactory = GsonConverterFactory.create()
+
+object YelpRetrofitInstance {
     val retrofit: YelpApiService = Retrofit.Builder()
         .baseUrl(Constants.YELP_BASE_URL)
         .addConverterFactory(gson)
@@ -36,12 +37,10 @@ object RetrofitInstance {
 }
 
 object UserRetrofitInstance {
-
-    private val gson: GsonConverterFactory = GsonConverterFactory.create()
     val userRetrofit: UserApiService = Retrofit.Builder()
         .baseUrl(Constants.RANDOM_BASE_URL)
         .addConverterFactory(gson)
-        .client(RetrofitInstance.provideHttpInterceptor())
+        .client(provideHttpInterceptor())
         .build()
         .create(UserApiService::class.java)
 }

@@ -2,7 +2,7 @@ package com.example.yelpclone.di
 
 import com.example.yelpclone.core.util.DispatcherProvider
 import com.example.yelpclone.data.api.YelpApiService
-import com.example.yelpclone.data.api.RetrofitInstance
+import com.example.yelpclone.data.api.YelpRetrofitInstance
 import com.example.yelpclone.data.api.UserRetrofitInstance
 import com.example.yelpclone.data.api.UserApiService
 import com.example.yelpclone.data.api.RepositoryImpl
@@ -24,7 +24,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideYelpApiService(): YelpApiService = RetrofitInstance.retrofit
+    fun provideYelpApiService(): YelpApiService = YelpRetrofitInstance.retrofit
 
     @Singleton
     @Provides
