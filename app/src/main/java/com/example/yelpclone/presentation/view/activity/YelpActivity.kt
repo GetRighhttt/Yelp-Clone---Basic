@@ -33,11 +33,6 @@ class YelpActivity : AppCompatActivity() {
     private val viewModel: YelpViewModel by viewModels()
     private lateinit var yelpAdapter: YelpBusinessAdapter
 
-    companion object {
-        private const val MAIN = "MAIN_ACTIVITY"
-        const val EXTRA_ITEM_ID_MAIN = "EXTRA_ITEM_ID"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -208,5 +203,10 @@ class YelpActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val MAIN = "MAIN_ACTIVITY"
+        const val EXTRA_ITEM_ID_MAIN = "EXTRA_ITEM_ID"
     }
 }
