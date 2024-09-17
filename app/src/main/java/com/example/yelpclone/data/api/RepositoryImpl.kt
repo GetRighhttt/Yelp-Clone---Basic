@@ -21,8 +21,8 @@ class RepositoryImpl @Inject constructor (
         authHeader: String,
         searchTerm: String,
         location: String,
-        limit: Int,
-        offset: Int
+        limit: UInt,
+        offset: UInt
     ): Resource<YelpSearchResult> {
         return try {
             val response = withContext(Dispatchers.IO) {

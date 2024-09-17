@@ -9,6 +9,7 @@ interface YelpRepository {
         authHeader: String,
         searchTerm: String,
         location: String,
-        limit: Int,
-        offset : Int): Resource<YelpSearchResult>
+        limit: UInt,
+        offset: UInt
+    ): Resource<YelpSearchResult>
 }

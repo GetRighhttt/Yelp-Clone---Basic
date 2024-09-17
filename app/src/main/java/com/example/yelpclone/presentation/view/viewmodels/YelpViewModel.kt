@@ -34,7 +34,7 @@ class YelpViewModel @Inject constructor(
     val getBusinesses: (String) -> Unit = { query ->
         viewModelScope.launch(dispatcherProvider.ioCD) {
             // delay to show our progress bar
-            delay(200)
+            delay(200L)
 
             try {
                 when (val apiResult =
@@ -87,7 +87,7 @@ class YelpViewModel @Inject constructor(
         private const val YELP_VIEW_MODEL = "MAIN_VIEW_MODEL"
         private const val BEARER = "Bearer ${Constants.YELP_API_KEY}"
         private const val DEFAULT_LOCATION = "Tampa"
-        private const val DEFAULT_LIMIT = 50
-        private const val DEFAULT_OFFSET = 0
+        private const val DEFAULT_LIMIT: UInt = 50U
+        private const val DEFAULT_OFFSET: UInt = 0U
     }
 }

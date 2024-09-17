@@ -7,6 +7,6 @@ import java.io.Serializable
 Returns Yelp response
  */
 data class YelpSearchResult(
-    @SerializedName("total") val total: Int,
+    @SerializedName("total") val total: UInt,
     @SerializedName("businesses") val restaurants: List<YelpBusinesses>
 ) : Serializable

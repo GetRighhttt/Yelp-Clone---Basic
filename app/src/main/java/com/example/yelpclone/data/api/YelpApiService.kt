@@ -13,7 +13,7 @@ interface YelpApiService {
         @Header("Authorization") authHeader: String,
         @Query("term") searchTerm: String,
         @Query("location") location: String,
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("limit") limit: UInt,
+        @Query("offset") offset: UInt
     ) : Response<YelpSearchResult>
 }

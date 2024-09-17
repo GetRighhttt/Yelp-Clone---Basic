@@ -7,6 +7,6 @@ object Constants {
     const val RANDOM_BASE_URL = "https://random-data-api.com/api/v2/"
 
     //PAGING
-    const val STARTING_PAGE_INDEX = 1
-    const val PAGE_SIZE = 20
+    const val STARTING_PAGE_INDEX: UShort = 1U
+    const val PAGE_SIZE: UShort = 20U
 }
