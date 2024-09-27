@@ -41,6 +41,8 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.addMarker(MarkerOptions().position(coordinates!!).title(title!!).draggable(true))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates!!))
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        mMap.setMaxZoomPreference(200.0F)
 
         // swipe mechanism
         onBackPressedInitializer()
