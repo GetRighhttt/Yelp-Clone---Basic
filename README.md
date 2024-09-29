@@ -12,8 +12,6 @@ To install Project Title, follow these steps:
 
 ## **Usage**
 
-To use Project Title, follow these steps:
-
 1. Open the project in Android Studio.
 
 2. Modify the source code to fit your needs.
@@ -25,9 +23,6 @@ To use Project Title, follow these steps:
 5. Use the project as desired.
 
 ## **Contributing**
-
-If you'd like to contribute to Project Title, here are some guidelines:
- 
 
 1. Fork the repository.
 
@@ -79,4 +74,4 @@ https://github.com/GetRighhttt/Yelp-with-Google-Maps/assets/105057858/456c160a-4
 
 ## **Contact**
 
-If you have any questions or comments about Project Title, please contact **stefanbusiness95@gmail.com**.
+If you have any questions or comments, please contact **stefanbusiness95@gmail.com**.
