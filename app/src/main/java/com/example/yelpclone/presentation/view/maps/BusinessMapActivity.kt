@@ -9,6 +9,7 @@ import com.example.yelpclone.domain.model.yelp.YelpBusinesses
 import com.example.yelpclone.databinding.ActivityRestaurantMapBinding
 import com.example.yelpclone.presentation.view.activity.YelpActivity
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.CameraUpdateFactory.newLatLng
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -38,11 +39,10 @@ class BusinessMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
         mMap.addMarker(MarkerOptions().position(coordinates!!).title(title!!).draggable(true))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates!!))
         mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
-        mMap.animateCamera(CameraUpdateFactory.zoomIn())
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(coordinates?.latitude ?: 0.0, coordinates?.longitude ?: 0.0), 15f))
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isZoomGesturesEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
